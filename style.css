@@ -51,3 +51,50 @@ body {
     text-decoration: none;
   }
   
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 200px;
+}
+
+/* Space above the boxes */
+.main-content {
+    margin-top: 40px;
+  
+}
+
+.start-coding {
+    text-align: center;
+    font-size: 24px;
+    color: #000000;
+    margin-bottom: 20px; /* Space between title and boxes */
+}
+a.box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    width: 200px;
+    margin: 0 2px;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Remove underline */
+}
+
+a.box img {
+    width: 100%;
+    width: 100%; /* Make images take full width of the box */
+    height: 150px; /* Set a consistent height for all images */
+    object-fit: cover; /* Ensure images are cropped to fit the dimensions */
+    object-position: 0 20%; /* Center the image if it needs to be cropped */
+}
+
+a.box h3 {
+    margin: 10px;
+    font-size: 18px;
+    color: #2081C3;
+}
+
+a.box:hover {
+    background-color: lightgrey; /* Change color to light grey on hover */
+}
