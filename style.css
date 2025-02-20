@@ -139,3 +139,14 @@ a.box:hover {
     background-color: lightgrey; /* Change color to light grey on hover */
 
 }
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #080357;
+    font-size: 13px;
+}
+
+footer p {
+    margin: 0;
+    line-height: 1.5;
+}
