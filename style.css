@@ -51,7 +51,7 @@ body {
     text-decoration: none;
   }
   
- sample_lesson_embed
+ 
 .iframe-title {
     font-size: 24px;
     font-weight: bold;
@@ -90,7 +90,7 @@ button {
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
-
+}
 
 .container {
     display: flex;
@@ -137,5 +137,5 @@ a.box h3 {
 
 a.box:hover {
     background-color: lightgrey; /* Change color to light grey on hover */
-main
+
 }
