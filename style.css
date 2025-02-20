@@ -86,11 +86,7 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.3); /* Light black border */
     border-radius: 8px; /* Rounded corners */
 }
-#challenge_title{
-    font-weight: bold;
-    color: #333;
-    font-family:Arial, Helvetica, sans-serif
-}
+
 
 
   /*
@@ -138,24 +134,23 @@ a.box {
 }
 
 a.box img {
-    width: 100%; /* Make images take full width of the box */
-    height: 150px; /* Set a consistent height for all images */
-    object-fit: cover; /* Ensure images are cropped to fit the dimensions */
-    object-position: 0 20%; /* Center the image if it needs to be cropped */
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    object-position: 0 20%; 
 }
 
 a.box h3 {
     margin: 10px;
     font-size: 18px;
-    color: #2081C3;
+    color: #060a0d;
 }
 
 a.box:hover {
-    background-color: lightgrey; /* Change color to light grey on hover */
+    background-color: lightgrey; 
 
 }
 /* Testemonials */
-/* <meta name="viewport" content="width=device-width, initial-scale=1"> */
 
 
 .testimonials {
