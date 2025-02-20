@@ -139,7 +139,6 @@ a.box:hover {
     background-color: lightgrey; /* Change color to light grey on hover */
 
 }
-
 /* Testemonials */
 /* <meta name="viewport" content="width=device-width, initial-scale=1"> */
 
@@ -185,4 +184,16 @@ a.box:hover {
   font-size: 2em; /* Adjust font size */
   font-weight: bold; /* Makes it bold */
   margin-top: 30px; /* Adds spacing */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #080357;
+    font-size: 13px;
+}
+
+footer p {
+    margin: 0;
+    line-height: 1.5;
 }
