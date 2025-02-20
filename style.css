@@ -139,6 +139,53 @@ a.box:hover {
     background-color: lightgrey; /* Change color to light grey on hover */
 
 }
+/* Testemonials */
+/* <meta name="viewport" content="width=device-width, initial-scale=1"> */
+
+
+.testimonials {
+  border: 2px solid #2081C3;
+  background-color: #BED8D4;
+  border-radius: 50px;
+  padding: 20px;
+  margin: 20px
+}
+
+.testimonials::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.testimonials img {
+  float: left;
+  margin-right: 30px;
+  border-radius: 10%;
+}
+
+.testimonials span {
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+@media (max-width: 500px) {
+  .testimonials {
+      text-align: center;
+  }
+  .testimonials img {
+      margin: auto;
+      float: none;
+      display: block;
+  }
+}
+
+.testimonials-title {
+  text-align: center; /* Centers the text */
+  font-size: 2em; /* Adjust font size */
+  font-weight: bold; /* Makes it bold */
+  margin-top: 30px; /* Adds spacing */
+}
+
 footer {
     text-align: center;
     padding: 20px;
