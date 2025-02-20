@@ -86,6 +86,11 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.3); /* Light black border */
     border-radius: 8px; /* Rounded corners */
 }
+#challenge_title{
+    font-weight: bold;
+    color: #333;
+    font-family:Arial, Helvetica, sans-serif
+}
 
 
   /*
@@ -243,6 +248,12 @@ a.box:hover {
 .mission-text p {
     color: #666;
 }
+
+#welcome {
+    font-weight: bold;
+    color: #333;
+}
+
 
 .boxed-text {
     background: rgb(255, 254, 254);
