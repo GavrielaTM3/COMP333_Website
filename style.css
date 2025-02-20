@@ -1,9 +1,12 @@
 body {
-    background-color: #BED8D4
-  }
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #d9f0e6, #bcd4e6);
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
 .navbar {
-  background-color: #1e4ca1; /* Strong blue */
-  padding: 10px;
+  background-color: #1e4ca1; 
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -61,7 +64,14 @@ body {
     color: #F7F9F9;
     text-decoration: none;
   }
+
   
+
+}
+.mission-text {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
  
 .iframe-title {
     font-size: 24px;
@@ -79,12 +89,15 @@ body {
     align-items: center;
     height: 100vh; /* Full viewport height */
     flex-direction: column;
+    
 }
 
 /* Style the iframe with a light black border */
 .iframe-container iframe {
-    border: 2px solid rgba(0, 0, 0, 0.3); /* Light black border */
-    border-radius: 8px; /* Rounded corners */
+    border: 2px solid rgba(0, 0, 0, 0.3); 
+    border-radius: 8px; 
+
+
 }
 
 
@@ -107,7 +120,10 @@ button {
     display: flex;
     justify-content: space-between;
     padding: 0 200px;
-}
+    gap: 20px;
+    margin-top: 20px;
+  }
+
 
 /* Space above the boxes */
 .main-content {
@@ -137,6 +153,8 @@ a.box img {
     height: 150px; /* Set a consistent height for all images */
     object-fit: cover; /* Ensure images are cropped to fit the dimensions */
     object-position: 0 20%; /* Center the image if it needs to be cropped */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 a.box h3 {
@@ -144,6 +162,8 @@ a.box h3 {
     font-size: 18px;
     color: #2081C3;
 }
+
+
 
 a.box:hover {
     background-color: lightgrey; /* Change color to light grey on hover */
