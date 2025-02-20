@@ -122,7 +122,6 @@ a.box {
 }
 
 a.box img {
-    width: 100%;
     width: 100%; /* Make images take full width of the box */
     height: 150px; /* Set a consistent height for all images */
     object-fit: cover; /* Ensure images are cropped to fit the dimensions */
@@ -158,14 +157,17 @@ a.box:hover {
 }
 
 .testimonials img {
-  float: left;
-  margin-right: 30px;
-  border-radius: 10%;
+  float: left; 
+   /* Make images take width: 100%;full width of the box */
+  width: 20%; /* Set a consistent height for all images */
+  object-fit: cover;/* Ensure images are croppe d to fit the dimensions */
+  object-position: 0 20%; /* Center the image if it needs to be cropped */
 }
 
 .testimonials span {
   font-size: 20px;
   margin-right: 15px;
+  font-weight: bold;
 }
 
 @media (max-width: 500px) {
