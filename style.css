@@ -2,13 +2,25 @@ body {
     background-color: #BED8D4
   }
 .navbar {
-    width: 100%;
-    background-color: #2081C3;
-    text-align: center;
-    padding: 0;
-    margin: 0;
+  background-color: #1e4ca1; /* Strong blue */
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #144282; 
+}
 .navbar ul {
     /* 
           Remove bullet points.
@@ -23,7 +35,7 @@ body {
     /* 
           For navbars use background color that stands out.
     */
-    background-color: #2081C3;
+    background-color: #1e4ca1;
     text-align: center;
   }
   
@@ -32,8 +44,7 @@ body {
   */
   .navbar li {
     width: 150 px;
-    background-color: #2081C3;
-    border: 2px solid black;
+    background-color: #1e4ca1;
     /* 
           Show the navbar elements next to each other instead of on top of each 
           other. 
