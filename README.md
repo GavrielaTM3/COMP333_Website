@@ -21,5 +21,5 @@ We did not include the issue numbers in the branch commits. There are issues whi
 
 ## Authors 
 
-Conrad Fischl
-Gavi Meyers 
+Conrad Fischl contributed 50 % 
+Gavi Meyers contributed 50 %
