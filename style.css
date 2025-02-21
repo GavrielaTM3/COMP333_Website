@@ -83,8 +83,8 @@ body {
 
 /* Style the iframe with a light black border */
 .iframe-container iframe {
-    border: 2px solid rgba(0, 0, 0, 0.3); /* Light black border */
-    border-radius: 8px; /* Rounded corners */
+    border: 2px solid rgba(0, 0, 0, 0.3); 
+    border-radius: 8px; 
 }
 
 
@@ -154,12 +154,12 @@ a.box:hover {
 
 
 .testimonials {
-  display: flex; /* Aligns image and text in a row */
-  align-items: center; /* Centers items vertically */
-  border: 2px solid #1e4ca1; /* Adjusted border color */
-  background-color: #e0f2f1; /* Softer background */
+  display: flex; 
+  align-items: center; 
+  border: 2px solid #c1c5cc; 
+  background-color: #e0f2f1; 
   border-radius: 25px; /* Rounded edges */
-  padding: 20px;
+  padding: 100px;
   margin: 20px 0;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
