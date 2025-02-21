@@ -15,7 +15,11 @@ Our website is hosted on github pages so you simply need to go to the URL:
 If you clone the repo locally you can view the HTML files in your browser. 
 
 
+## Notes 
+
+We did not include the issue numbers in the branch commits. There are issues which correspond to the branches, but we did not specify which issue when we pushed a branch. 
+
 ## Authors 
 
-Conrad Fischl
-Gavi Meyers 
+Conrad Fischl contributed 50 % 
+Gavi Meyers contributed 50 %
