@@ -1,6 +1,8 @@
 body {
     background-color: #BED8D4
   }
+
+  /*Navbar*/
 .navbar {
   background-color: #1e4ca1; /* Strong blue */
   padding: 10px;
@@ -68,11 +70,11 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
-    margin-bottom: 15px; /* Ensure spacing between title and iframe */
+    margin-bottom: 15px; /*Ensure spacing between title and iframe*/
 }
 
 
-/* Center the iframe vertically and horizontally */
+/*Center the iframe vertically and horizontally*/
 .iframe-container {
     display: flex;
     justify-content: center;
@@ -81,7 +83,7 @@ body {
     flex-direction: column;
 }
 
-/* Style the iframe with a light black border */
+/*Style the iframe with a light black border*/
 .iframe-container iframe {
     border: 2px solid rgba(0, 0, 0, 0.3); 
     border-radius: 8px; 
@@ -110,7 +112,7 @@ button {
     padding: 0 200px;
 }
 
-/* Space above the boxes */
+/*Space above the boxes*/
 .main-content {
     margin-top: 40px;
   
@@ -120,7 +122,8 @@ button {
     text-align: center;
     font-size: 24px;
     color: #000000;
-    margin-bottom: 20px; /* Space between title and boxes */
+    margin-bottom: 20px; 
+    /*Space between title and boxes*/
 }
 a.box {
     background-color: #ffffff;
@@ -150,7 +153,7 @@ a.box:hover {
     background-color: lightgrey; 
 
 }
-/* Testemonials */
+/* Testimonials */
 
 
 .testimonials {
@@ -175,7 +178,7 @@ a.box:hover {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 40px; /* Increased space between image and text */
+  margin-right: 40px; /* Increased space between the image and text */
 }
 
 .testimonial-text {
@@ -226,7 +229,7 @@ a.box:hover {
   font-weight: bold; 
   margin-top: 20px; 
 }
-
+/* Mission box */
 .mission-text {
     background: #e6f7ff;
     padding: 20px;
