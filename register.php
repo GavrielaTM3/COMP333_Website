@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
   <h1>BlossomTech Signup</h1>
+  <link rel="stylesheet" href="style.css" />
 
   <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded"/>
   <title>Register</title>
@@ -32,29 +33,22 @@
       die("Connection failed: " . $conn->connect_error);
     }
     
-    if(isset($_REQUEST["register"])){
+    if(isset($_REQUEST["submit"])){
       // Variables for the output and the web form below.
       $out_value = "";
       $s_user = $_REQUEST['username'];
       $s_pass = $_REQUEST['password'];
       $hashed_password = password_hash($s_pass, PASSWORD_DEFAULT);
-
      
       // Check that the user entered data in the form.
       if(!empty($s_user) && !empty($hashed_password)){
         // If so, prepare SQL query with the data to query the database.
-        $sql_query = "SELECT password FROM users WHERE username = ('$s_user')";
-        // Send the query and obtain the result.
-        // mysqli_query performs a query against the database.
-        $password = mysqli_query($conn, $sql_query);
-        if(password_verify($password, $hashed_password)) {
-          // If the password inputs matched the hashed password in the database
-          // Do something, you know... log them in.
-        } 
-        else{
-        // Else, Redirect them back to the login page.
-        }
-       
+        $sql_insert = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql_insert);
+        $stmt->bind_param("ss", $s_user, $hashed_password);
+        $stmt->execute();
+        header("Location: login.php");
+        exit(); // Important to prevent further execution
       }
       else {
         $out_value = "No information inputted!";
@@ -68,10 +62,8 @@
   <!-- 
     HTML code for the form by which the user can query data.
   -->
-
-  <div class="container">
-    <h2>Register</h2>
-    <form id="registerForm">
+  
+      <form method='GET' id="registerForm">
       <div class="input-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
@@ -85,9 +77,8 @@
         <input type="password" id="confirmPassword" name="confirmPassword" required>
       </div>
       <p id="error-message"></p>
-      <button type="submit">Register</button>
+      <input type="submit" name="submit" value="Submit"/>
     </form>
-  </div>
 
 
   <script>
@@ -96,10 +87,15 @@
       const confirmPassword = document.getElementById("confirmPassword").value;
       const errorMessage = document.getElementById("error-message");
 
-      if (password !== confirmPassword) {
+      if (password !== confirmPassword ) {
         event.preventDefault(); // Prevent form submission
         errorMessage.textContent = "Passwords do not match!";
-      } else {
+      } 
+      else if (password.length <10){
+        event.preventDefault(); // Prevent form submission
+        errorMessage.textContent = "Passwords must be 10 characters!";
+      }
+      else {
         errorMessage.textContent = ""; // Clear the error message
       }
     });
