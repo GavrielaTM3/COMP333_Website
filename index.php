@@ -28,6 +28,7 @@ $is_logged_in = isset($_SESSION['username']);
       <li><a href="#our-mission">Our Mission</a></li>
       <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#start-coding">Start Coding</a></li>
+      <li><a href="suggestions.php">Suggestions</a></li> 
     </ul>
     <?php if ($is_logged_in): ?>
             <li style="color: #BED8D4;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></li>
