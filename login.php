@@ -14,12 +14,15 @@
 
 <body>
   <?php
-     
+    // Start session
+     session_start(); 
+
     // running MySQL server with default setting (user 'root' with no password).
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "app-db";
+    $error_msg = "";
 
     // Create server connection.
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -32,11 +35,11 @@
     }
     // `isset` — Function to determine if a variable is declared and is different than null.
   
-    if(isset($_REQUEST["submit"])){
+    if(isset($_POST["submit"])){
       // Variables for the output and the web form below.
       $out_value = "";
-      $s_user = $_REQUEST['username'];
-      $s_pass = $_REQUEST['password'];
+      $s_user = $_POST['username'];
+      $s_pass = $_POST['password'];
       //$hashed_password = password_hash($s_pass, PASSWORD_DEFAULT);
 
   
@@ -56,12 +59,13 @@
         // mysqli_query performs a query against the database.
         if(password_verify($s_pass, $pass)) {
           // If the password inputs matched the hashed password in the database
-          // Do something, you know... log them in.
-          echo "LOGGED IN SUCCESFULLY AS: " . "$s_user";
+          //Log user in.
+          $_SESSION['username'] = $s_user; // Store username in session
+          header("Location: index.php"); // Redirect to home page
+          exit();
         } 
         else{
-          echo "Invalid login credientials - please try again";
-          header("Location: login.php");
+          $error_msg = "Invalid login credientials - please try again";
         }
         // mysqli_fetch_assoc returns an associative array that corresponds to the 
         // fetched row or NULL if there are no more rows.
@@ -84,16 +88,14 @@
     You can leave the action in the form open 
     (https://stackoverflow.com/questions/1131781/is-it-a-good-practice-to-use-an-empty-url-for-a-html-forms-action-attribute-a)
   -->
-  <form method="GET" action="">
-  Username: <input type="text" name="username" placeholder="Enter username" /><br>
-  Password: <input type="password" name="password" placeholder="Enter password" /><br>
+  <form method="POST" action="">
+  Username: <input type="text" name="username" placeholder="Enter username" required/><br>
+  Password: <input type="password" name="password" placeholder="Enter password" required/><br>
   <input type="submit" name="submit" value="Submit"/>
- 
-  <p><?php 
-    if(!empty($out_value)){
-      echo $out_value;
-    }
-  ?></p>
+  <?php if (!empty($error_msg)) : ?>
+        <p style="color: red;"><?php echo $error_msg; ?></p>
+  <?php endif; ?>
+
   </form>
   <p>Don't have an account? <a href="register.php">Sign up</a></p>
   

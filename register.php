@@ -21,7 +21,7 @@
     $password = "";
     $dbname = "app-db";
     // Create server connection.
-    
+    $error_msg = "";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -33,25 +33,38 @@
       die("Connection failed: " . $conn->connect_error);
     }
     
-    if(isset($_REQUEST["submit"])){
+    if(isset($_POST["submit"])){
       // Variables for the output and the web form below.
       $out_value = "";
-      $s_user = $_REQUEST['username'];
-      $s_pass = $_REQUEST['password'];
+      $s_user = $_POST['username'];
+      $s_pass = $_POST['password'];
       $hashed_password = password_hash($s_pass, PASSWORD_DEFAULT);
      
       // Check that the user entered data in the form.
       if(!empty($s_user) && !empty($hashed_password)){
         // If so, prepare SQL query with the data to query the database.
-        $sql_insert = "INSERT INTO users (username, password) VALUES (?, ?)";
-        $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("ss", $s_user, $hashed_password);
-        $stmt->execute();
-        header("Location: login.php");
-        exit(); // Important to prevent further execution
+        $sql_check = "SELECT username FROM users WHERE username = ?";
+        $stmt_check = $conn->prepare($sql_check);
+        $stmt_check->bind_param("s", $s_user);
+        $stmt_check->execute();
+        $result = $stmt_check->get_result();
+
+        if ($result->num_rows >0){
+          $error_msg = "Error, username already taken. Please choose another";
+        }
+        else{
+          $sql_insert = "INSERT INTO users (username, password) VALUES (?, ?)";
+          $stmt = $conn->prepare($sql_insert);
+          $stmt->bind_param("ss", $s_user, $hashed_password);
+          $stmt->execute();
+          echo "Registration succesful";
+          header("Location: login.php");
+          exit(); // Stop script execution after redirect
+        }
+
       }
       else {
-        $out_value = "No information inputted!";
+        $error_msg = "No information inputted!";
       }
     }
 
@@ -60,10 +73,10 @@
   ?>
 
   <!-- 
-    HTML code for the form by which the user can query data.
+    HTML code for the form by which the user can register.
   -->
   
-      <form method='GET' id="registerForm">
+      <form method='POST' id="registerForm">
       <div class="input-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
@@ -79,14 +92,17 @@
       <p id="error-message"></p>
       <input type="submit" name="submit" value="Submit"/>
     </form>
-
+    <p>Already have an account? <a href="login.php">Log in </a></p>
+    <?php if (!empty($error_msg)) : ?>
+        <p id="error-message" style="color: red;"><?php echo $error_msg; ?></p>
+    <?php endif; ?>
 
   <script>
     document.getElementById("registerForm").addEventListener("submit", function(event) {
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
       const errorMessage = document.getElementById("error-message");
-
+    
       if (password !== confirmPassword ) {
         event.preventDefault(); // Prevent form submission
         errorMessage.textContent = "Passwords do not match!";
