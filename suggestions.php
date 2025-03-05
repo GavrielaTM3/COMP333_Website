@@ -5,13 +5,15 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Correctly linking to the CSS file -->
+    <div class="suggest"> 
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suggestions</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
 </head>
 <body>
-    <h2>Submit Your Suggestions</h2>
+    <h2>Submit Your Suggestions Here!</h2>
     <form action="process_suggestions.php" method="POST">
         <label for="name">Name (Optional):</label>
         <input type="text" id="name" name="name">
