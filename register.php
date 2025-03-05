@@ -79,15 +79,15 @@
       <form method='POST' id="registerForm">
       <div class="input-group">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" placeholder="Username" required>
       </div>
       <div class="input-group">
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
       </div>
       <div class="input-group">
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
       </div>
       <p id="error-message"></p>
       <input type="submit" name="submit" value="Submit"/>

@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
   <h1>Welcome to BlossomTech!</h1>
+ 
   <link rel="stylesheet" href="style.css" />
 
   <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded"/>
