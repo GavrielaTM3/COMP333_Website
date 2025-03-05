@@ -12,7 +12,7 @@ session_start();
 </head>
 <body>
 <div class="suggest">
-    <h2>Submit Your Suggestions Here!</h2>
+    <h2>Submit Your Suggestions Here!!</h2>
     <form action="process_suggestions.php" method="POST">
         <label for="name">Name (Optional):</label>
         <input type="text" id="name" name="name">
