@@ -14,16 +14,15 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username']; 
-    $lesson_title = $_POST['lesson_title'];
-    $lesson_description = $_POST['lesson_description'];
-    $name = $_POST['name'];
+    $coding_concept = $_POST['coding_concept']; // Updated field name
+    $theme = $_POST['theme']; // Updated field name
 
-    $sql = "INSERT INTO suggestions (username, lesson_title, lesson_description, name) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO learning_preferences (username, coding_concept, theme) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $username, $lesson_title, $lesson_description, $name);
+    $stmt->bind_param("sss", $username, $coding_concept, $theme);
 
     if ($stmt->execute()) {
-        header("Location: suggestions.php");
+        header("Location: view_suggestions.php"); // Redirect after submission
         exit();
     } else {
         echo "Error: " . $conn->error;
@@ -38,25 +37,22 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suggestions</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
+    <title>Submit Learning Preferences</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="suggest">  
-        <h2>Submit Your Suggestions</h2>
-        <form action="process_suggestions.php" method="POST">
+        <h2>Submit Your Learning Preferences</h2>
+        <form action="submit_suggestions.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
 
-            <label for="lesson_title">Lesson Title:</label>
-            <input type="text" id="lesson_title" name="lesson_title" required>
+            <label for="coding_concept">Coding Concept:</label> <!-- Updated field -->
+            <input type="text" id="coding_concept" name="coding_concept" required>
 
-            <label for="lesson_description">Lesson Description:</label>
-            <textarea id="lesson_description" name="lesson_description" required></textarea>
-
-            <label for="name">Name (Optional):</label>
-            <input type="text" id="name" name="name">
+            <label for="theme">Theme:</label> <!-- Updated field -->
+            <textarea id="theme" name="theme" required></textarea>
 
             <button type="submit">Submit</button>
         </form>
