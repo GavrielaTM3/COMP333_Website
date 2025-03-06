@@ -1,4 +1,5 @@
 <?php
+session_start(); // Ensure session is started
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -37,6 +38,7 @@ $result = $conn->query($sql);
             background-color: #f2f2f2;
         }
     </style>
+ <p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
 </head>
 <body>
 

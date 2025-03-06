@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username']; 
+    $username = $_SESSION['username']; 
     $coding_concept = $_POST['coding_concept']; // Updated field name
     $theme = $_POST['theme']; // Updated field name
 
@@ -39,6 +39,8 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Learning Preferences</title>
     <link rel="stylesheet" href="style.css">
+    <p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+        
 </head>
 <body>
 
@@ -46,7 +48,7 @@ $conn->close();
         <h2>Submit Your Learning Preferences</h2>
         <form action="submit_suggestions.php" method="POST">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <p style="color: black;"> <?php echo htmlspecialchars($_SESSION['username']); ?></p>
 
             <label for="coding_concept">Coding Concept:</label> <!-- Updated field -->
             <input type="text" id="coding_concept" name="coding_concept" required>
