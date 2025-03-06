@@ -4,13 +4,13 @@ $username = "root";
 $password = "";
 $dbname = "app-db";
 
-// Establish database connection
+// Make sure you have database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all entries from the learning_preferences table
+// Get  entries from the learning_preferences table
 $sql = "SELECT id, username, coding_concept, theme FROM learning_preferences";
 $result = $conn->query($sql);
 ?>
@@ -48,6 +48,7 @@ $result = $conn->query($sql);
         <th>Username</th>
         <th>Coding Concept</th>
         <th>Theme</th>
+        <th>Action</th>
     </tr>
 
     <?php
@@ -58,10 +59,15 @@ $result = $conn->query($sql);
                 <td>{$row['username']}</td>
                 <td>{$row['coding_concept']}</td>
                 <td>{$row['theme']}</td>
+                <td>
+                    <a href='view_suggestion.php?id={$row['id']}'>View</a> | 
+                    <a href='update_suggestion.php?id={$row['id']}'>Update</a> | 
+                    <a href='delete_suggestion.php?id={$row['id']}' onclick='return confirm(\"Are you sure you want to delete this?\")'>Delete</a>
+                </td>
             </tr>";
         }
     } else {
-        echo "<tr><td colspan='4'>No learning preferences submitted yet.</td></tr>";
+        echo "<tr><td colspan='5'>No learning preferences submitted yet.</td></tr>";
     }
     ?>
 </table>
