@@ -1,5 +1,36 @@
 <?php
-session_start();
+session_start(); // Ensure session is started
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "app-db";
+
+// Establish database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username']; 
+    $lesson_title = $_POST['lesson_title'];
+    $lesson_description = $_POST['lesson_description'];
+    $name = $_POST['name'];
+
+    $sql = "INSERT INTO suggestions (username, lesson_title, lesson_description, name) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $username, $lesson_title, $lesson_description, $name);
+
+    if ($stmt->execute()) {
+        header("Location: suggestions.php");
+        exit();
+    } else {
+        echo "Error: " . $conn->error;
+    }
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -12,16 +43,22 @@ session_start();
 </head>
 <body>
 
-    <div class="suggest">  <!-- Keeping this div for styling -->
+    <div class="suggest">  
         <h2>Submit Your Suggestions</h2>
         <form action="process_suggestions.php" method="POST">
-            <label for="Coding Concept">Coding Concept</label>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-            <textarea id="suggestion" name="theme" required></textarea>
-            <label for="Theme">Theme: </label>
+            <label for="lesson_title">Lesson Title:</label>
+            <input type="text" id="lesson_title" name="lesson_title" required>
 
-            <textarea id="suggestion" name="suggestion" required></textarea>
-            <button type="submit">Submit: </button>
+            <label for="lesson_description">Lesson Description:</label>
+            <textarea id="lesson_description" name="lesson_description" required></textarea>
+
+            <label for="name">Name (Optional):</label>
+            <input type="text" id="name" name="name">
+
+            <button type="submit">Submit</button>
         </form>
     </div>
 
