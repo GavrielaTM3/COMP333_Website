@@ -13,7 +13,6 @@ session_start();
 <body>
 <div class="suggest">
     <h2>What lesson would you like to see on our website?</h2>
-    <form action="process_suggestions.php" method="POST">
         <label for="name">Name (Optional):</label>
         <input type="text" id="name" name="name">
 
@@ -25,3 +24,6 @@ session_start();
 </div>
 </body>
 </html>
+
+
+/* line 16: < form action="process_suggestions.php" method="POST">*/
