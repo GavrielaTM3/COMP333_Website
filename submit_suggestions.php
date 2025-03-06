@@ -1,9 +1,12 @@
 <?php
+session_start(); // Ensure session is started
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "app-db";
 
+// Establish database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -36,30 +39,27 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suggestions</title>
-    <!-- Link to css file -->
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
 </head>
 <body>
 
-    <!-- For css file -->
     <div class="suggest">  
         <h2>Submit Your Suggestions</h2>
         <form action="process_suggestions.php" method="POST">
-     <!-- form -->        
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-    <label for="lesson_title">Lesson Title:</label>
-    <input type="text" id="lesson_title" name="lesson_title">
+            <label for="lesson_title">Lesson Title:</label>
+            <input type="text" id="lesson_title" name="lesson_title" required>
 
-    <label for="lesson_description">Lesson Description:</label>
-    <textarea id="lesson_description" name="lesson_description"></textarea>
+            <label for="lesson_description">Lesson Description:</label>
+            <textarea id="lesson_description" name="lesson_description" required></textarea>
 
-    <label for="name">Name (Optional):</label>
-    <input type="text" id="name" name="name">
+            <label for="name">Name (Optional):</label>
+            <input type="text" id="name" name="name">
 
-    <button type="submit">Submit</button>
-</form>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 
 </body>
