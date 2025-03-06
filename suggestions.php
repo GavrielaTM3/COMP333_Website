@@ -1,5 +1,22 @@
 <?php
 session_start();
+
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "app-db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch suggestions
+$sql = "SELECT name, suggestion FROM suggestions ORDER BY id DESC";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -23,5 +40,33 @@ session_start();
         <button type="submit">Submit</button>
     </form>
 </div>
+
+<!-- Display Submitted Suggestions -->
+<div class="suggestions-list">
+    <h2>Previous Suggestions</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Suggestion</th>
+        </tr>
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . (!empty($row["name"]) ? $row["name"] : "Anonymous") . "</td>";
+                echo "<td>" . $row["suggestion"] . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='2'>No suggestions yet.</td></tr>";
+        }
+        ?>
+    </table>
+</div>
+
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
