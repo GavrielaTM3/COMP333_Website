@@ -3,6 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "app-db";
+session_start(); // Ensure session is started
 
 // Establish database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -38,6 +39,7 @@ $row = $result->fetch_assoc();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Learning Preference</title>
+    <p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
     <style>
         body {
             font-family: Arial, sans-serif;
