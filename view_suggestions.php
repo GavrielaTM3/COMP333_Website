@@ -1,17 +1,16 @@
 <?php
-session_start(); // Ensure session is started
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "app-db";
 
-// Make sure you have database connection
+// Establish database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get  entries from the learning_preferences table
+// Fetch all entries from the learning_preferences table
 $sql = "SELECT id, username, coding_concept, theme FROM learning_preferences";
 $result = $conn->query($sql);
 ?>
@@ -19,7 +18,6 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Preferences</title>
@@ -39,7 +37,6 @@ $result = $conn->query($sql);
             background-color: #f2f2f2;
         }
     </style>
- <p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
 </head>
 <body>
 
@@ -51,7 +48,7 @@ $result = $conn->query($sql);
         <th>Username</th>
         <th>Coding Concept</th>
         <th>Theme</th>
-        <th>Action</th>
+        <th>Action</th> <!-- Added action column -->
     </tr>
 
     <?php
@@ -63,12 +60,9 @@ $result = $conn->query($sql);
                 <td>{$row['coding_concept']}</td>
                 <td>{$row['theme']}</td>
                 <td>
-                    <a href='view_ind_suggestion.php?id={$row['id']}'>View</a>";
-                    if (isset($_SESSION['username']) && $_SESSION['username'] === $row['username']) {
-                        echo " | <a href='update_suggestion.php?id={$row['id']}'>Update</a> 
-                               | <a href='delete_suggestion.php?id={$row['id']}' onclick='return confirm(\"Are you sure you want to delete this?\")'>Delete</a>";
-                    }
-                    echo "
+                    <a href='view_ind_suggestion.php?id={$row['id']}'>View</a> | 
+                    <a href='update_suggestion.php?id={$row['id']}'>Update</a> | 
+                    <a href='delete_suggestion.php?id={$row['id']}' onclick='return confirm(\"Are you sure you want to delete this?\")'>Delete</a>
                 </td>
             </tr>";
         }
