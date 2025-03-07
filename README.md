@@ -12,7 +12,7 @@ Index.php is our home page. The one html file is a sample lesson which is embede
 To run locally make sure you have XAMPP installed. Clone the git repo inside your htdocs file in XAMMP. Then configure mySQL in PHP Admin 
 to add the tables given with the commands below. Now you should be all set to navigate to http://localhost/COMP333_website/index.php? and the homepage for our website should be visible. 
 
-## Running the website on infinity free
+## Running the website on InfinityFree
 
 You can simply follow the link given at the end of this file to see our website deployed through infinity free. Note the mySQL connection is not configured to work properly so you will not be able to log in or make suggestions. However you can still view our home page, and locally our app works perfectly with mySQL and phpAdmin.  
 
