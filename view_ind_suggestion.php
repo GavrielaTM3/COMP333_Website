@@ -1,14 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "app-db";
 
-// Establish database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once './db.php';
 
 // Check if an ID is provided
 if (!isset($_GET['id']) || empty($_GET['id'])) {

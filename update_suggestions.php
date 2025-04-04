@@ -1,16 +1,8 @@
 <?php
 session_start(); // Ensure session is started
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "app-db";
+require_once './db.php';
 
-// Establish database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 if (!isset($_GET['id'])) {
     die("Invalid request.");

@@ -17,24 +17,7 @@
   <?php
     // Start session
      session_start(); 
-
-    // running MySQL server with default setting (user 'root' with no password).
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "app-db";
-    $error_msg = "";
-
-    // Create server connection.
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check server connection.
-    if ($conn->connect_error) {
-      // Exit with the error message.
-      // . is used to concatenate strings.
-      die("Connection failed: " . $conn->connect_error);
-    }
-    // `isset` — Function to determine if a variable is declared and is different than null.
+     require_once './db.php';
   
     if(isset($_POST["submit"])){
       // Variables for the output and the web form below.

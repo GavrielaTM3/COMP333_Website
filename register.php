@@ -16,23 +16,8 @@
 <body>
   <?php
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "app-db";
-    // Create server connection.
-    $error_msg = "";
+    require_once './db.php';
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check server connection.
-
-    if ($conn->connect_error) {
-      // Exit with the error message.
-      // . is used to concatenate strings.
-      die("Connection failed: " . $conn->connect_error);
-    }
-    
     if(isset($_POST["submit"])){
       // Variables for the output and the web form below.
       $out_value = "";

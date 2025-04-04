@@ -1,15 +1,6 @@
 <?php
 session_start(); // Ensure session is started
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "app-db";
-
-// Make sure you have database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once './db.php';
 
 // Get  entries from the learning_preferences table
 $sql = "SELECT id, username, coding_concept, theme FROM learning_preferences";
