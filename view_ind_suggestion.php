@@ -1,5 +1,7 @@
 <?php
 
+session_start(); // Ensure session is started
+
 require_once './db.php';
 
 // Check if an ID is provided
@@ -30,6 +32,7 @@ $row = $result->fetch_assoc();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Learning Preference</title>
+    <p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
     <style>
         body {
             font-family: Arial, sans-serif;

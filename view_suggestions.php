@@ -2,7 +2,7 @@
 session_start(); // Ensure session is started
 require_once './db.php';
 
-// Get  entries from the learning_preferences table
+// Get entries from the learning_preferences table
 $sql = "SELECT id, username, coding_concept, theme FROM learning_preferences";
 $result = $conn->query($sql);
 ?>
@@ -29,13 +29,39 @@ $result = $conn->query($sql);
         th {
             background-color: #f2f2f2;
         }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .home-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+        }
     </style>
- <p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
 </head>
 <body>
 
+<p style="color: black;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+
 <h2>Learning Preferences</h2>
-<a href="submit_suggestions.php">Submit New Preference</a>
+
+<!-- Home Button -->
+<form action="index.php" method="get" style="display: inline-block;">
+    <button type="submit" class="home-btn">🏠 Home</button>
+</form>
+
+<!-- Submit New Preference Button -->
+<a href="submit_suggestions.php" style="display: inline-block; margin-left: 10px;">
+    <button class="submit-btn">➕ Submit New Preference</button>
+</a>
+
 <table>
     <tr>
         <th>ID</th>

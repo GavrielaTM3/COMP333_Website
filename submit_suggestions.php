@@ -38,6 +38,7 @@ $conn->close();
 
     <div class="suggest">  
         <h2>Submit Your Learning Preferences</h2>
+        <a href="index.php" style="display: inline-block; margin-bottom: 10px;">🏠 Home</a>
         <form action="submit_suggestions.php" method="POST">
             <label for="username">Username:</label>
             <p style="color: black;"> <?php echo htmlspecialchars($_SESSION['username']); ?></p>
