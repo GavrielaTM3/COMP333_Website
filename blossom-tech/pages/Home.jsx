@@ -1,24 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
-import styles from './styles'; // your external StyleSheet
+import styles from './styles'; // adjust path if needed
 
-const Home = () => {
+const Home = ({ onNavigateToLogin }) => {
   const [username, setUsername] = useState(null);
+  const scrollViewRef = useRef(null);
+
+  // Refs to sections
+  const missionRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const startCodingRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost/api/user') // Replace with device IP if needed
+    fetch('http://172.21.69.89/COMP333_website/api/user.php') // make sure .php is included
       .then(res => res.json())
       .then(data => {
         if (data.username) setUsername(data.username);
       })
       .catch(err => console.error('Error fetching user info:', err));
   }, []);
+
+  const scrollToSection = ref => {
+    ref.current?.measureLayout(
+      scrollViewRef.current.getNativeScrollRef(),
+      (x, y) => {
+        scrollViewRef.current.scrollTo({ x: 0, y, animated: true });
+      }
+    );
+  };
 
   const topics = [
     {
@@ -45,44 +61,78 @@ const Home = () => {
       role: 'Grandmother',
       quote:
         'I am retired and wanted to learn how to code to help my grandkids with their homework.',
-      img: 'https://images.pexels.com/photos/6248443/pexels-photo-6248443.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      img: 'https://images.pexels.com/photos/6248443/pexels-photo-6248443.jpeg'
     },
     {
       name: 'Richard Montero',
       role: 'Kindergarten student',
       quote:
         'I learned to code to make video games that I now play with my friends.',
-      img: 'https://images.pexels.com/photos/8421989/pexels-photo-8421989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      img: 'https://images.pexels.com/photos/8421989/pexels-photo-8421989.jpeg'
     },
     {
       name: 'Sonia Ramirez',
       role: 'CEO',
       quote:
         'After launching my startup, I wanted to learn to code so I could help out my web development team.',
-      img: 'https://images.pexels.com/photos/8124235/pexels-photo-8124235.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      img: 'https://images.pexels.com/photos/8124235/pexels-photo-8124235.jpeg'
     }
   ];
 
   return (
-    <ScrollView style={styles.body}>
+    <ScrollView ref={scrollViewRef} style={styles.body}>
       <View style={styles.navbar}>
-        {username && <Text style={styles.navItem}>Suggestions</Text>}
-        <Text style={styles.navItem}>Our Mission</Text>
-        <Text style={styles.navItem}>Testimonials</Text>
-        <Text style={styles.navItem}>Start Coding</Text>
+        {username && (
+          <TouchableOpacity onPress={() => Alert.alert('Suggestions')}>
+            <Text style={styles.navItem}>Suggestions</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={() => scrollToSection(missionRef)}>
+          <Text style={styles.navItem}>Our Mission</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => scrollToSection(testimonialsRef)}>
+          <Text style={styles.navItem}>Testimonials</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => scrollToSection(startCodingRef)}>
+          <Text style={styles.navItem}>Start Coding</Text>
+        </TouchableOpacity>
         {username ? (
           <>
             <Text style={[styles.navItem, { color: '#BED8D4' }]}>
               Logged in as: {username}
             </Text>
-            <Text style={styles.navItem}>Log Out</Text>
+            <TouchableOpacity
+  onPress={async () => {
+    try {
+      const response = await fetch('http://172.21.69.89/api/logout.php', {
+        method: 'POST',
+        credentials: 'include', // Ensures cookies (sessions) are sent with request
+      });
+
+      const text = await response.text();
+      console.log('Logout response:', text);
+
+      Alert.alert('Logged Out', 'You have been successfully logged out.');
+
+      // Optionally force re-render or refresh state
+      setUsername(null);
+    } catch (err) {
+      console.error('Logout error:', err);
+      Alert.alert('Error', 'Failed to log out.');
+    }
+  }}
+>
+  <Text style={styles.navItem}>Log Out</Text>
+</TouchableOpacity>
           </>
         ) : (
-          <Text style={styles.navItem}>Login</Text>
+          <TouchableOpacity onPress={onNavigateToLogin}>
+            <Text style={styles.navItem}>Login</Text>
+          </TouchableOpacity>
         )}
       </View>
 
-      <View style={styles.missionText}>
+      <View ref={missionRef} style={styles.missionText}>
         <Text style={styles.welcome}>Welcome to BlossomTech</Text>
         <Text style={styles.missionTextParagraph}>
           Our mission is to teach you how to code based on your interests! You
@@ -93,7 +143,7 @@ const Home = () => {
         </Text>
       </View>
 
-      <View style={styles.mainContent}>
+      <View ref={startCodingRef} style={styles.mainContent}>
         <Text style={styles.startCodingTitle}>
           Start your first coding lesson for FREE!
         </Text>
@@ -107,7 +157,7 @@ const Home = () => {
         </View>
       </View>
 
-      <View>
+      <View ref={testimonialsRef}>
         <Text style={styles.testimonialsTitle}>What people are saying...</Text>
         {testimonials.map((t, idx) => (
           <View key={idx} style={styles.testimonials}>
@@ -121,7 +171,6 @@ const Home = () => {
           </View>
         ))}
       </View>
-            
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>

@@ -1,17 +1,18 @@
 // App.js
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Home from './pages/Home';
 import Login from './pages/Login';
 
 export default function App() {
-  const [screen, setScreen] = useState('home'); // 'home' or 'login'
+  const [screen, setScreen] = useState('home'); // Options: 'home' or 'login'
 
   return (
     <View style={styles.container}>
-      {screen === 'home' ? (
-        <Home onNavigate={() => setScreen('login')} />
-      ) : (
+      {screen === 'home' && (
+        <Home onNavigateToLogin={() => setScreen('login')} />
+      )}
+      {screen === 'login' && (
         <Login onNavigateBack={() => setScreen('home')} />
       )}
     </View>
