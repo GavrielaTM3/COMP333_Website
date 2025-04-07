@@ -2,19 +2,59 @@
 
 Our website was created to address the significant lack of diversity in tech. We believe that coding should be accessible to everyone, regardless of age, gender, background, or interests. Our mission is to empower individuals from all demographics to learn how to code, providing tailored lesson plans that align with each person's unique passions and goals. By embracing diversity, we aim to break down barriers and inspire a new generation of tech creators who reflect the world we live in.
 
+## Setup Instructions
 
-## Code Structure
+To install our website, and run it locally, make sure you have XAMMP installed. Then navigate to the htdocs directory in XAMMP and execute the following commands
 
-Index.php is our home page. The one html file is a sample lesson which is embeded in our homepage. The rest of the .php files are various functional files that allow users to register/login/ make or update or delete or view suggestions. 
+### 1. Clone the Repository (inside htdocs)
 
-## Running the Website Locally
+```bash
+git clone https://github.com/GavrielaTM3/COMP333_Website.git
+```
+### 2. Create the SQL tables in phpMyAdmin
 
-To run locally make sure you have XAMPP installed. Clone the git repo inside your htdocs file in XAMMP. Then configure mySQL in PHP Admin 
-to add the tables given with the commands below. Now you should be all set to navigate to http://localhost/COMP333_website/index.php? and the homepage for our website should be visible. 
+Launch phpMyAdmin and create a new database named app-db then execute the following two commands to create the nesecerary tables:
 
-## Running the website on InfinityFree
+Create user table:
+```bash
+CREATE TABLE users (username VARCHAR(255) PRIMARY KEY, password VARCHAR(255));
+```
 
-You can simply follow the link given at the end of this file to see our website deployed through infinity free. Note the mySQL connection is not configured to work properly so you will not be able to log in or make suggestions. However you can still view our home page, and locally our app works perfectly with mySQL and phpAdmin.  
+Create learning_preferences table:
+```bash
+CREATE TABLE learning_preferences ( id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), coding_concept VARCHAR(255), theme VARCHAR(255), FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE );
+```
+There are screenshots in the SQL section which show the desired structure of the tables
+
+## Web Version 
+
+After following the above commands you should be all set to use our website in your local browser! Simply navigate to URL below to see our homepage!
+
+```bash
+http://localhost/COMP333_website/index.php
+```
+
+## Mobile Version 
+
+To run our webapge on a mobile device make sure you have an emulator running on your computer, we used andriod studio. Then navigate into the blossom-tech directory:
+
+```bash
+cd /Applications/XAMPP/htdocs/COMP333_Website/blossom-tech
+```
+Note that your path could be different based on your computer and where you installed XAMPP
+
+Once you are in this directory you need to edit the config.js file with your IP address for the REST api to function properly
+Simply change this line in config.js to the IP address of your computer
+```bash
+const IP_ADDRESS = '172.0.0.1'; // CHANGE THIS LINE TO YOUR IP ADDRESS
+```
+
+Then run: 
+```bash
+npm run android
+```
+Note: make sure you have installed npm 
+Then the homepage for our website should popup on the emulator!
 
 ## Creating an Account
 
@@ -31,29 +71,34 @@ a page where they can view all the current suggestions, make another, view a sug
 
 To log out simply click logout on the home page
 
-## SQL Commands 
-Create user table: 
-
-CREATE TABLE users (username VARCHAR(255) PRIMARY KEY, password VARCHAR(255));
+## SQL  
 
 ![Users](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Users_Table.jpg)
-
-
-Create learning_preferences table:
-
-CREATE TABLE learning_preferences ( id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), coding_concept VARCHAR(255), theme VARCHAR(255), FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE );
 
 ![Learning Prefernces](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Learning_Perferences_Table.jpg)
 
 ## PHP Myadmin 
-
+Conrad's PHP: 
 ![Conrad's PHP](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/main/Conrad_PHP.jpg)
+Gavi's PHP:
 ![Gavi's PHP](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/PHP_Gavi.png)
 
-## Infinity Deployment 
-Conrad's deployment:  http://blossomtech.ct.ws/
-Gavi's deployment: http://blossomtech.infinityfreeapp.com/
 
+## Postman
+
+Conrad's API calls: 
+
+Post: 
+![Conrad's Post](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Conrad_Post.jpg)
+Get:
+![Conrad's Get](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Conrad_Get.jpg)
+
+Gavi's API calls: 
+
+Post: 
+![Gavi's Post](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Gavi_Post.png)
+Get:
+![Gavi's Get](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Gavi_Get.png)
 ## Authors 
 
 Conrad Fischl contributed 50 % 
