@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
+
 
 export default function App() {
   const [screen, setScreen] = useState('home'); // Options: 'home' or 'login'
@@ -13,8 +15,14 @@ export default function App() {
         <Home onNavigateToLogin={() => setScreen('login')} />
       )}
       {screen === 'login' && (
-        <Login onNavigateBack={() => setScreen('home')} />
-      )}
+  <Login
+    onNavigateBack={() => setScreen('home')}
+    onNavigateToRegister={() => setScreen('register')}
+  />
+)}
+      {screen === 'register' && (
+        <Register onNavigateBack={() => setScreen('login')} />
+      )}    
     </View>
   );
 }

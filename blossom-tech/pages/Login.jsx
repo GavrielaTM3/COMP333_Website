@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-na
 import styles from './styles';
 import { BASE_URL } from '../config';
 
-const Login = ({ onNavigateBack }) => {
+const Login = ({ onNavigateBack, onNavigateToRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -62,8 +62,8 @@ const Login = ({ onNavigateBack }) => {
 
         <Button title="Submit" onPress={handleLogin} />
 
-        <TouchableOpacity onPress={() => Alert.alert('Redirect to register')}>
-          <Text style={styles.loginLink}>Don't have an account? Sign up</Text>
+        <TouchableOpacity onPress={onNavigateToRegister}>
+            <Text style={styles.loginLink}>Don't have an account? Sign up</Text>
         </TouchableOpacity>
 
         <View style={{ marginTop: 12 }}>
