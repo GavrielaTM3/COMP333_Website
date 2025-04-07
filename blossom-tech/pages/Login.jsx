@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import styles from './styles';
+import { BASE_URL } from '../config';
 
 const Login = ({ onNavigateBack }) => {
   const [username, setUsername] = useState('');
@@ -14,7 +15,8 @@ const Login = ({ onNavigateBack }) => {
     }
 
     try {
-      const response = await fetch('http://172.21.69.89/COMP333_website/api/login.php', {
+      const response = await fetch(`${BASE_URL}/login.php`
+      , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

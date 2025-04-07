@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-import styles from './styles'; // adjust path if needed
+import styles from './styles';
+import { BASE_URL } from '../config';
+
 
 const Home = ({ onNavigateToLogin }) => {
   const [username, setUsername] = useState(null);
@@ -19,7 +21,7 @@ const Home = ({ onNavigateToLogin }) => {
   const startCodingRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://172.21.69.89/COMP333_website/api/user.php') // make sure .php is included
+    fetch(`${BASE_URL}/user.php`) // make sure .php is included
       .then(res => res.json())
       .then(data => {
         if (data.username) setUsername(data.username);
