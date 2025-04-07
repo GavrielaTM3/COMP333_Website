@@ -132,6 +132,58 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     textAlign: 'center',
   },
+  loginContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#BED8D4',
+    padding: 20,
+  },
+  loginTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#1e4ca1',
+    textAlign: 'center',
+  },
+  loginCard: {
+    width: '100%',
+    maxWidth: 400,
+    backgroundColor: '#fff',
+    padding: 30,
+    borderRadius: 12,
+    borderColor: '#ccc',
+    borderWidth: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  loginInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginBottom: 16,
+    fontSize: 16,
+    backgroundColor: '#fefefe',
+  },
+  loginError: {
+    color: 'red',
+    marginBottom: 12,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  loginLink: {
+    marginTop: 18,
+    textAlign: 'center',
+    color: '#007BFF',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+  },
+
 });
 
 export default styles;
