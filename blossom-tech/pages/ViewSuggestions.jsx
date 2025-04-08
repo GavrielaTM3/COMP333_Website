@@ -1,4 +1,3 @@
-// ViewSuggestions.jsx
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -11,7 +10,12 @@ import {
 } from 'react-native';
 import { BASE_URL } from '../config';
 
-const ViewSuggestions = ({ onNavigateBack }) => {
+const ViewSuggestions = ({
+  onNavigateBack,
+  onNavigateToSubmit,
+  onNavigateToView,
+  onNavigateToUpdate,
+}) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,22 +34,24 @@ const ViewSuggestions = ({ onNavigateBack }) => {
 
   const handleDelete = (id) => {
     Alert.alert('Confirm Delete', 'Are you sure you want to delete this?', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
+      { text: 'Cancel', style: 'cancel' },
       {
         text: 'Delete',
         style: 'destructive',
         onPress: () => {
-          fetch(`${BASE_URL}/delete_suggestion.php?id=${id}`, {
-            method: 'GET',
+          fetch(`${BASE_URL}/suggestions.php?id=${id}`, {
+            method: 'DELETE',
           })
-            .then(() => {
-              setSuggestions((prev) =>
-                prev.filter((item) => item.id !== id)
-              );
-              Alert.alert('Deleted!', 'The entry was deleted.');
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.success) {
+                setSuggestions((prev) =>
+                  prev.filter((item) => item.id !== id)
+                );
+                Alert.alert('Deleted!', 'The entry was deleted.');
+              } else {
+                Alert.alert('Error', res.error || 'Delete failed.');
+              }
             })
             .catch((err) => {
               console.error('Delete failed:', err);
@@ -55,22 +61,18 @@ const ViewSuggestions = ({ onNavigateBack }) => {
       },
     ]);
   };
-
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Learning Preferences</Text>
 
       <TouchableOpacity
-        onPress={() => Alert.alert('Redirect', 'Navigate to submit form here')}
+        onPress={onNavigateToSubmit}
         style={styles.submitButton}
       >
         <Text style={styles.submitButtonText}>➕ Submit New Preference</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={onNavigateBack}
-        style={styles.homeButton}
-      >
+      <TouchableOpacity onPress={onNavigateBack} style={styles.homeButton}>
         <Text style={styles.homeButtonText}>🏠 Back to Home</Text>
       </TouchableOpacity>
 
@@ -92,19 +94,11 @@ const ViewSuggestions = ({ onNavigateBack }) => {
               <Text style={styles.cell}>{item.coding_concept}</Text>
               <Text style={styles.cell}>{item.theme}</Text>
               <View style={styles.cell}>
-                <TouchableOpacity
-                  onPress={() =>
-                    Alert.alert('View', `Viewing ID: ${item.id}`)
-                  }
-                >
+                <TouchableOpacity onPress={() => onNavigateToView(item.id)}>
                   <Text style={styles.actionLink}>View</Text>
                 </TouchableOpacity>
                 <Text> | </Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    Alert.alert('Update', `Navigating to update ID: ${item.id}`)
-                  }
-                >
+                <TouchableOpacity onPress={() => onNavigateToUpdate(item.id)}>
                   <Text style={[styles.actionLink, { color: 'orange' }]}>
                     Update
                   </Text>
