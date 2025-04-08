@@ -53,12 +53,12 @@ Then run:
 ```bash
 npm run android
 ```
-Note: make sure you have installed npm 
+Note: make sure you have installed npm. 
 Then the homepage for our website should popup on the emulator!
 
 ## Creating an Account
 
-One can create an account by clicking on Log in and then clicking the register button on the log in page. The user must provide a username
+One can create an account by clicking on "Log in" and then clicking the register button on the log in page. The user must provide a username
 which is not already taken, and a password which is at least 10 characters long. After completing this form succesfully the user will be
 redirected to the login page where they can login using their new credentials. After logging in they will be redirected back to our home page. 
 
@@ -69,7 +69,7 @@ a page where they can view all the current suggestions, make another, view a sug
 
 ## Loging out
 
-To log out simply click logout on the home page
+To log out simply click logout on the home page.
 
 ## SQL  
 
