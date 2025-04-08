@@ -1,6 +1,5 @@
-// ViewIndividualSuggestion.jsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, ActivityIndicator, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Button, Alert } from 'react-native';
 import { BASE_URL } from '../config';
 
 const ViewIndividualSuggestion = ({ id, onNavigateBack }) => {
@@ -8,7 +7,7 @@ const ViewIndividualSuggestion = ({ id, onNavigateBack }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/view_ind_suggestion.php?id=${id}`)
+    fetch(`${BASE_URL}/suggestions.php?id=${id}`)
       .then(res => res.json())
       .then(data => {
         setSuggestion(data);
@@ -22,7 +21,7 @@ const ViewIndividualSuggestion = ({ id, onNavigateBack }) => {
   }, [id]);
 
   if (loading) {
-    return <ActivityIndicator style={{ marginTop: 50 }} size="large" color="#007bff" />;
+    return <ActivityIndicator size="large" style={{ marginTop: 50 }} color="#007bff" />;
   }
 
   if (!suggestion) {
