@@ -106,7 +106,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
             <TouchableOpacity
   onPress={async () => {
     try {
-      const response = await fetch('http://172.21.69.89/api/logout.php', {
+      const response = await fetch(`${BASE_URL}/logout.php`, {
         method: 'POST',
         credentials: 'include', // Ensures cookies (sessions) are sent with request
       });
