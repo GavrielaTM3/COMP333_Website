@@ -7,7 +7,7 @@ import Register from './pages/Register';
 
 
 export default function App() {
-  const [screen, setScreen] = useState('home'); // Options: 'home' or 'login'
+  const [screen, setScreen] = useState('home'); 
 
   return (
     <View style={styles.container}>

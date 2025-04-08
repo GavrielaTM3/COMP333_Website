@@ -21,7 +21,7 @@ const Home = ({ onNavigateToLogin }) => {
   const startCodingRef = useRef(null);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/user.php`) // make sure .php is included
+    fetch(`${BASE_URL}/user.php`) 
       .then(res => res.json())
       .then(data => {
         if (data.username) setUsername(data.username);
