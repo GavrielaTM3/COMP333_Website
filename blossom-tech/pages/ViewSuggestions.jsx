@@ -18,6 +18,17 @@ const ViewSuggestions = ({
 }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState('');
+
+  useEffect(() => {
+    // Fetch current logged-in user
+    fetch(`${BASE_URL}/user.php`, { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.username) setCurrentUser(data.username);
+      })
+      .catch((err) => console.error('Error fetching user info:', err));
+  }, []);
 
   useEffect(() => {
     fetch(`${BASE_URL}/suggestions.php`)
@@ -61,6 +72,7 @@ const ViewSuggestions = ({
       },
     ]);
   };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Learning Preferences</Text>
@@ -97,18 +109,22 @@ const ViewSuggestions = ({
                 <TouchableOpacity onPress={() => onNavigateToView(item.id)}>
                   <Text style={styles.actionLink}>View</Text>
                 </TouchableOpacity>
-                <Text> | </Text>
-                <TouchableOpacity onPress={() => onNavigateToUpdate(item.id)}>
-                  <Text style={[styles.actionLink, { color: 'orange' }]}>
-                    Update
-                  </Text>
-                </TouchableOpacity>
-                <Text> | </Text>
-                <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                  <Text style={[styles.actionLink, { color: 'red' }]}>
-                    Delete
-                  </Text>
-                </TouchableOpacity>
+                {item.username === currentUser && (
+                  <>
+                    <Text> | </Text>
+                    <TouchableOpacity onPress={() => onNavigateToUpdate(item.id)}>
+                      <Text style={[styles.actionLink, { color: 'orange' }]}>
+                        Update
+                      </Text>
+                    </TouchableOpacity>
+                    <Text> | </Text>
+                    <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                      <Text style={[styles.actionLink, { color: 'red' }]}>
+                        Delete
+                      </Text>
+                    </TouchableOpacity>
+                  </>
+                )}
               </View>
             </View>
           ))}
