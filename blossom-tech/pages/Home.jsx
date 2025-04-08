@@ -11,7 +11,7 @@ import styles from './styles';
 import { BASE_URL } from '../config';
 
 
-const Home = ({ onNavigateToLogin }) => {
+const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
   const [username, setUsername] = useState(null);
   const scrollViewRef = useRef(null);
 
@@ -85,7 +85,7 @@ const Home = ({ onNavigateToLogin }) => {
     <ScrollView ref={scrollViewRef} style={styles.body}>
       <View style={styles.navbar}>
         {username && (
-          <TouchableOpacity onPress={() => Alert.alert('Suggestions')}>
+          <TouchableOpacity onPress={() => onNavigateToSuggestions()}>
             <Text style={styles.navItem}>Suggestions</Text>
           </TouchableOpacity>
         )}
