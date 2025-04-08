@@ -1,9 +1,17 @@
 // ViewSuggestions.jsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { BASE_URL } from '../config';
 
-const ViewSuggestions = () => {
+const ViewSuggestions = ({ onNavigateBack }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,9 +28,52 @@ const ViewSuggestions = () => {
       });
   }, []);
 
+  const handleDelete = (id) => {
+    Alert.alert('Confirm Delete', 'Are you sure you want to delete this?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: () => {
+          fetch(`${BASE_URL}/delete_suggestion.php?id=${id}`, {
+            method: 'GET',
+          })
+            .then(() => {
+              setSuggestions((prev) =>
+                prev.filter((item) => item.id !== id)
+              );
+              Alert.alert('Deleted!', 'The entry was deleted.');
+            })
+            .catch((err) => {
+              console.error('Delete failed:', err);
+              Alert.alert('Error', 'Failed to delete the suggestion.');
+            });
+        },
+      },
+    ]);
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Learning Preferences</Text>
+
+      <TouchableOpacity
+        onPress={() => Alert.alert('Redirect', 'Navigate to submit form here')}
+        style={styles.submitButton}
+      >
+        <Text style={styles.submitButtonText}>➕ Submit New Preference</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={onNavigateBack}
+        style={styles.homeButton}
+      >
+        <Text style={styles.homeButtonText}>🏠 Back to Home</Text>
+      </TouchableOpacity>
+
       {loading ? (
         <ActivityIndicator size="large" color="#007bff" />
       ) : (
@@ -32,6 +83,7 @@ const ViewSuggestions = () => {
             <Text style={styles.cellHeader}>Username</Text>
             <Text style={styles.cellHeader}>Concept</Text>
             <Text style={styles.cellHeader}>Theme</Text>
+            <Text style={styles.cellHeader}>Action</Text>
           </View>
           {suggestions.map((item) => (
             <View key={item.id} style={styles.row}>
@@ -39,6 +91,31 @@ const ViewSuggestions = () => {
               <Text style={styles.cell}>{item.username}</Text>
               <Text style={styles.cell}>{item.coding_concept}</Text>
               <Text style={styles.cell}>{item.theme}</Text>
+              <View style={styles.cell}>
+                <TouchableOpacity
+                  onPress={() =>
+                    Alert.alert('View', `Viewing ID: ${item.id}`)
+                  }
+                >
+                  <Text style={styles.actionLink}>View</Text>
+                </TouchableOpacity>
+                <Text> | </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    Alert.alert('Update', `Navigating to update ID: ${item.id}`)
+                  }
+                >
+                  <Text style={[styles.actionLink, { color: 'orange' }]}>
+                    Update
+                  </Text>
+                </TouchableOpacity>
+                <Text> | </Text>
+                <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                  <Text style={[styles.actionLink, { color: 'red' }]}>
+                    Delete
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ))}
         </View>
@@ -70,6 +147,34 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     padding: 10,
+  },
+  submitButton: {
+    backgroundColor: '#28a745',
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: 'flex-start',
+    marginBottom: 10,
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  homeButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: 'flex-start',
+    marginBottom: 20,
+  },
+  homeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  actionLink: {
+    color: 'blue',
+    fontWeight: 'bold',
   },
 });
 
