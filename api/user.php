@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 session_start();
 
-
+// Checks if user is signed in 
 if (isset($_SESSION['username'])) {
     echo json_encode([
         'success' => true,

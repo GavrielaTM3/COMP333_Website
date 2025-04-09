@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+// Connect to backend DB
 require_once '../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -20,6 +21,7 @@ $username = $input['username'];
 $password = $input['password'];
 $confirmPassword = $input['confirmPassword'];
 
+// Make sure password satisfies requirements
 if ($password !== $confirmPassword) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Passwords do not match']);
@@ -36,7 +38,7 @@ $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
-
+//Check if username is already taken
 if ($result->num_rows > 0) {
     http_response_code(409); // Conflict
     echo json_encode(['success' => false, 'error' => 'Username already taken']);
