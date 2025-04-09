@@ -16,10 +16,10 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Get logged-in username from session (via API)
+  // Fetch the currently logged-in user from the backend
   useEffect(() => {
     fetch(`${BASE_URL}/user.php`, {
-      credentials: 'include', // So session cookie is included
+      credentials: 'include', // Include session cookie for auth
     })
       .then((res) => res.json())
       .then((data) => {
@@ -37,6 +37,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
       });
   }, []);
 
+  // Handle submission of a new suggestion
   const handleSubmit = () => {
     if (!concept || !theme || !username) {
       Alert.alert('Missing Fields', 'Please complete all fields.');
@@ -59,8 +60,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
           Alert.alert('Success', 'Suggestion submitted!');
           setConcept('');
           setTheme('');
-          // Navigate back to ViewSuggestions
-          onNavigateBack();
+          onNavigateBack(); // Navigate back to the view screen
         } else {
           Alert.alert('Error', data.error || 'Submission failed.');
         }
@@ -71,6 +71,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
       });
   };
 
+  // Show loading indicator while fetching user info
   if (loading) {
     return <ActivityIndicator size="large" color="#007bff" style={{ marginTop: 50 }} />;
   }
@@ -79,6 +80,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Submit New Preference</Text>
 
+      {/* Display logged-in username (read-only) */}
       <TextInput
         placeholder="Username"
         value={username}
@@ -86,6 +88,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
         style={[styles.input, { backgroundColor: '#eee' }]}
       />
 
+      {/* Input for coding concept */}
       <TextInput
         placeholder="Coding Concept"
         value={concept}
@@ -93,6 +96,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
         style={styles.input}
       />
 
+      {/* Input for theme */}
       <TextInput
         placeholder="Theme"
         value={theme}
@@ -100,6 +104,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
         style={styles.input}
       />
 
+      {/* Submit and Back buttons */}
       <Button title="Submit" onPress={handleSubmit} />
       <Button title="Back" onPress={onNavigateBack} color="gray" />
     </View>

@@ -6,6 +6,7 @@ const ViewIndividualSuggestion = ({ id, onNavigateBack }) => {
   const [suggestion, setSuggestion] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetch specific suggestion by ID on component mount
   useEffect(() => {
     fetch(`${BASE_URL}/suggestions.php?id=${id}`)
       .then(res => res.json())
@@ -20,10 +21,12 @@ const ViewIndividualSuggestion = ({ id, onNavigateBack }) => {
       });
   }, [id]);
 
+  // Show loading spinner while fetching data
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 50 }} color="#007bff" />;
   }
 
+  // Show fallback message if suggestion was not found
   if (!suggestion) {
     return (
       <View style={styles.container}>
@@ -33,6 +36,7 @@ const ViewIndividualSuggestion = ({ id, onNavigateBack }) => {
     );
   }
 
+  // Display suggestion details
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Suggestion #{suggestion.id}</Text>

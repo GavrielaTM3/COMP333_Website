@@ -21,7 +21,7 @@ const ViewSuggestions = ({
   const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
-    // Fetch current logged-in user
+    // Get current logged-in user info
     fetch(`${BASE_URL}/user.php`, { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => {
@@ -31,6 +31,7 @@ const ViewSuggestions = ({
   }, []);
 
   useEffect(() => {
+    // Fetch all submitted suggestions
     fetch(`${BASE_URL}/suggestions.php`)
       .then((response) => response.json())
       .then((data) => {
@@ -44,6 +45,7 @@ const ViewSuggestions = ({
   }, []);
 
   const handleDelete = (id) => {
+    // Confirm deletion and delete the suggestion from backend and UI
     Alert.alert('Confirm Delete', 'Are you sure you want to delete this?', [
       { text: 'Cancel', style: 'cancel' },
       {
@@ -77,6 +79,7 @@ const ViewSuggestions = ({
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Learning Preferences</Text>
 
+      {/* Navigation Buttons */}
       <TouchableOpacity
         onPress={onNavigateToSubmit}
         style={styles.submitButton}
@@ -88,6 +91,7 @@ const ViewSuggestions = ({
         <Text style={styles.homeButtonText}>🏠 Back to Home</Text>
       </TouchableOpacity>
 
+      {/* Show loader or suggestions table */}
       {loading ? (
         <ActivityIndicator size="large" color="#007bff" />
       ) : (
@@ -109,6 +113,7 @@ const ViewSuggestions = ({
                 <TouchableOpacity onPress={() => onNavigateToView(item.id)}>
                   <Text style={styles.actionLink}>View</Text>
                 </TouchableOpacity>
+                {/* Only allow update/delete if the user owns the suggestion */}
                 {item.username === currentUser && (
                   <>
                     <Text> | </Text>
@@ -134,6 +139,7 @@ const ViewSuggestions = ({
   );
 };
 
+// Basic styling for layout and visuals
 const styles = StyleSheet.create({
   container: { padding: 20 },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },

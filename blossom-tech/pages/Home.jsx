@@ -10,16 +10,16 @@ import {
 import styles from './styles';
 import { BASE_URL } from '../config';
 
-
 const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
   const [username, setUsername] = useState(null);
   const scrollViewRef = useRef(null);
 
-  // Refs to sections
+  // Section refs for scroll navigation
   const missionRef = useRef(null);
   const testimonialsRef = useRef(null);
   const startCodingRef = useRef(null);
 
+  // Fetch logged-in user info
   useEffect(() => {
     fetch(`${BASE_URL}/user.php`) 
       .then(res => res.json())
@@ -29,6 +29,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
       .catch(err => console.error('Error fetching user info:', err));
   }, []);
 
+  // Scroll to a section using its ref
   const scrollToSection = ref => {
     ref.current?.measureLayout(
       scrollViewRef.current.getNativeScrollRef(),
@@ -38,6 +39,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
     );
   };
 
+  // Topics available for personalized coding lessons
   const topics = [
     {
       title: 'Biology',
@@ -57,6 +59,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
     }
   ];
 
+  // Sample testimonials from fictional users
   const testimonials = [
     {
       name: 'Diana Spenser',
@@ -83,6 +86,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
 
   return (
     <ScrollView ref={scrollViewRef} style={styles.body}>
+      {/* Navigation Bar */}
       <View style={styles.navbar}>
         {username && (
           <TouchableOpacity onPress={() => onNavigateToSuggestions()}>
@@ -98,34 +102,34 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
         <TouchableOpacity onPress={() => scrollToSection(startCodingRef)}>
           <Text style={styles.navItem}>Start Coding</Text>
         </TouchableOpacity>
+
+        {/* User login/logout handling */}
         {username ? (
           <>
             <Text style={[styles.navItem, { color: '#BED8D4' }]}>
               Logged in as: {username}
             </Text>
             <TouchableOpacity
-  onPress={async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/logout.php`, {
-        method: 'POST',
-        credentials: 'include', // Ensures cookies (sessions) are sent with request
-      });
+              onPress={async () => {
+                try {
+                  const response = await fetch(`${BASE_URL}/logout.php`, {
+                    method: 'POST',
+                    credentials: 'include', // Include session cookie
+                  });
 
-      const text = await response.text();
-      console.log('Logout response:', text);
+                  const text = await response.text();
+                  console.log('Logout response:', text);
 
-      Alert.alert('Logged Out', 'You have been successfully logged out.');
-
-      // Optionally force re-render or refresh state
-      setUsername(null);
-    } catch (err) {
-      console.error('Logout error:', err);
-      Alert.alert('Error', 'Failed to log out.');
-    }
-  }}
->
-  <Text style={styles.navItem}>Log Out</Text>
-</TouchableOpacity>
+                  Alert.alert('Logged Out', 'You have been successfully logged out.');
+                  setUsername(null); // Clear username state
+                } catch (err) {
+                  console.error('Logout error:', err);
+                  Alert.alert('Error', 'Failed to log out.');
+                }
+              }}
+            >
+              <Text style={styles.navItem}>Log Out</Text>
+            </TouchableOpacity>
           </>
         ) : (
           <TouchableOpacity onPress={onNavigateToLogin}>
@@ -134,6 +138,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
         )}
       </View>
 
+      {/* Mission Section */}
       <View ref={missionRef} style={styles.missionText}>
         <Text style={styles.welcome}>Welcome to BlossomTech</Text>
         <Text style={styles.missionTextParagraph}>
@@ -145,6 +150,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
         </Text>
       </View>
 
+      {/* Topic Selection Section */}
       <View ref={startCodingRef} style={styles.mainContent}>
         <Text style={styles.startCodingTitle}>
           Start your first coding lesson for FREE!
@@ -159,6 +165,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
         </View>
       </View>
 
+      {/* Testimonials Section */}
       <View ref={testimonialsRef}>
         <Text style={styles.testimonialsTitle}>What people are saying...</Text>
         {testimonials.map((t, idx) => (
@@ -174,6 +181,7 @@ const Home = ({ onNavigateToLogin, onNavigateToSuggestions }) => {
         ))}
       </View>
 
+      {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
           This is a website created for COMP333 at Wesleyan University. This is

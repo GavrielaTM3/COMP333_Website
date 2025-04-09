@@ -16,8 +16,8 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
   const [theme, setTheme] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Fetch existing suggestion data when component mounts
   useEffect(() => {
-    // First, fetch the current suggestion by ID
     fetch(`${BASE_URL}/suggestions.php?id=${id}`)
       .then(res => res.json())
       .then(data => {
@@ -37,6 +37,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
       });
   }, [id]);
 
+  // Handle update form submission
   const handleUpdate = () => {
     if (!concept || !theme) {
       Alert.alert('Missing fields', 'Please fill out all fields.');
@@ -56,7 +57,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
       .then(response => {
         if (response.success) {
           Alert.alert('Success', 'Suggestion updated!');
-          onNavigateBack();
+          onNavigateBack(); // Return to previous screen
         } else {
           Alert.alert('Error', response.error || 'Update failed.');
         }
@@ -67,6 +68,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
       });
   };
 
+  // Show loading spinner while suggestion is being fetched
   if (loading) {
     return <ActivityIndicator size="large" color="#007bff" style={{ marginTop: 50 }} />;
   }
@@ -75,6 +77,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Update Suggestion #{id}</Text>
 
+      {/* Username is read-only */}
       <TextInput
         placeholder="Username"
         value={username}
@@ -82,6 +85,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
         style={[styles.input, { backgroundColor: '#eee' }]}
       />
 
+      {/* Editable coding concept input */}
       <TextInput
         placeholder="Coding Concept"
         value={concept}
@@ -89,6 +93,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
         style={styles.input}
       />
 
+      {/* Editable theme input */}
       <TextInput
         placeholder="Theme"
         value={theme}
@@ -96,6 +101,7 @@ const UpdateSuggestion = ({ id, onNavigateBack }) => {
         style={styles.input}
       />
 
+      {/* Action buttons */}
       <Button title="Update" onPress={handleUpdate} />
       <Button title="Back" onPress={onNavigateBack} color="gray" />
     </View>
