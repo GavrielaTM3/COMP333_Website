@@ -16,7 +16,7 @@ const SubmitSuggestion = ({ onNavigateBack }) => {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Fetch the currently logged-in user from the backend
+  // Fetch the currently logged-in user from the backend 
   useEffect(() => {
     fetch(`${BASE_URL}/user.php`, {
       credentials: 'include', // Include session cookie for auth
