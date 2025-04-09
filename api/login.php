@@ -1,7 +1,9 @@
 <?php
 header('Content-Type: application/json');
 session_start();
+// Connect to backend DB
 require_once '../db.php'; 
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

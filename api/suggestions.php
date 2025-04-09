@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 session_start();
+// Connect to backend DB
 require_once '../db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
