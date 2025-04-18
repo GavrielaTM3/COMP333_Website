@@ -1,0 +1,20 @@
+{
+    "name": "conradfischl/test-project",
+    "autoload": {
+        "psr-4": {
+            "Phpunit\\Phpunit\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Conrad",
+            "email": "conrad.f.lanzoni@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.1"
+    }
+}
