@@ -1,1 +1,1 @@
-{"version":1,"defects":{"StackTest::testPost_NewSong":8},"times":{"StackTest::testPushAndPop":0.005,"StackTest::testPost_NewSong":0.028}}
+{"version":1,"defects":{"StackTest::testPost_NewSong":8,"StackTest::testPost_CreateUser":8,"StackTest::testPost_FailedLogin":8},"times":{"StackTest::testPushAndPop":0.005,"StackTest::testPost_NewSong":0.028,"StackTest::testGet_UserList":0.013,"StackTest::testPost_CreateUser":0.117,"StackTest::testPost_LoginUser":0.071,"StackTest::testPost_FailedLogin":0.008}}

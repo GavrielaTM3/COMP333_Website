@@ -11,4 +11,5 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 session_unset();
 session_destroy();
 
+http_response_code(201);
 echo json_encode(['success' => true, 'message' => 'Logged out']);

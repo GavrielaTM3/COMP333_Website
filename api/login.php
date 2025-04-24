@@ -31,6 +31,7 @@ $user = $result->fetch_assoc();
 
 if ($user && password_verify($password, $user['password'])) {
     $_SESSION['username'] = $username;
+    http_response_code(201);
     echo json_encode(['success' => true, 'username' => $username]);
 } else {
     http_response_code(401); // Unauthorized

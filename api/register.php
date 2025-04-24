@@ -50,5 +50,6 @@ $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
 $stmt->bind_param("ss", $username, $hashedPassword);
 $stmt->execute();
 
+http_response_code(201);
 echo json_encode(['success' => true, 'message' => 'User registered successfully']);
 $conn->close();
