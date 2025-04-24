@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Python Code Runner</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+</head>
+<body>
+    <h2>Write a function <code>calculateAverage(scores)</code> that returns the average score.</h2>
+  
+    <textarea id="code">def calculateAverage(scores: list) -> float:
+      return sum(scores) / len(scores)
+  
+print("Average:", calculateAverage([23, 31, 19, 45]))</textarea>
+  
+    <br>
+    <button onclick="runCode()">Run Code</button>
+  
+    <pre id="output">(no output)</pre>
+  
+    <script>
+      let pyodideReady = false;
+  
+      async function loadPyodideAndPackages() {
+        window.pyodide = await loadPyodide();
+        pyodideReady = true;
+      }
+  
+      loadPyodideAndPackages();
+  
+      async function runCode() {
+        const output = document.getElementById("output");
+        if (!pyodideReady) {
+          output.textContent = "⏳ Pyodide is still loading...";
+          return;
+        }
+  
+        const userCode = document.getElementById("code").value;
+  
+        // We will manually redirect sys.stdout using Pyodide API
+        try {
+          await pyodide.runPythonAsync(`
+  import sys
+  from io import StringIO
+  sys.stdout = sys.stderr = StringIO()
+  `);
+          await pyodide.runPythonAsync(userCode);
+          const result = await pyodide.runPythonAsync("sys.stdout.getvalue()");
+          output.textContent = result || "(no output)";
+        } catch (err) {
+          output.textContent = "❌ Error:\n" + err;
+        }
+      }
+    </script>
+  </body>
+  </html>
