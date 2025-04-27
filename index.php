@@ -60,7 +60,7 @@ $is_logged_in = isset($_SESSION['username']);
                 <h3>Biology</h3>
             </a>
             
-            <a href="#" class="box">
+            <a href="fashion_lesson.php" class="box">
                 <img src="https://cdn.pixabay.com/photo/2022/08/25/23/06/woman-7411414_1280.png" alt="Dress">
                 <h3>Fashion</h3>
             </a>
