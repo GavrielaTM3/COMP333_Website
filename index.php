@@ -54,7 +54,7 @@ $is_logged_in = isset($_SESSION['username']);
             <h3>Fashion</h3>
         </a>
 
-        <a href="sports_lesson.php" class="box">
+        <a href="sports.php" class="box">
             <img src="https://cdn.pixabay.com/photo/2025/01/28/09/32/rocket-9365225_1280.jpg" alt="Sports Image">
             <h3>Sports</h3>
         </a>

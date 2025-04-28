@@ -2,109 +2,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fashion Coding Lesson</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f8ff; }
-        .editor { width: 100%; height: 200px; margin-bottom: 10px; }
-        .run-btn { padding: 10px 20px; font-size: 16px; background: #6e8eff; color: white; border: none; border-radius: 5px; }
-        .instructions { background: #eef; padding: 15px; margin-bottom: 20px; border-left: 5px solid #7aa6d0; }
-        .outfit-gallery { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
-        .outfit { text-align: center; border: 1px solid #ccc; border-radius: 10px; padding: 10px; background: #fff; width: 150px; }
-        .outfit img { max-width: 100%; border-radius: 5px; }
-        pre { white-space: pre-wrap; background: #f4f4f4; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Fashion Coding Lesson</title>
+
+  <!-- CodeMirror core -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.js"></script>
+
+  <!-- Python syntax mode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/python/python.min.js"></script>
+
+  <!-- Optional theme (dark mode) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/theme/material-darker.min.css" />
+
+  <!-- Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+
+  <form action="index.php" method="get" style="display: inline-block;">
+    <button type="submit" class="home-btn">Home</button>
+  </form>
+
+  <style>
+    body {
+      font-family: 'Arial Black', Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: white;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .instructions {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .CodeMirror {
+      height: 300px;
+      font-size: 15px;
+      background-color: #0d0d0d;
+      color: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      background-color: #4ea8de;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #3a86c3;
+    }
+
+    pre {
+      margin-top: 20px;
+      background: #121212;
+      padding: 10px;
+      border: 1px solid #555;
+      white-space: pre-wrap;
+      color: white;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 250px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; /* Position above the button */
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 14px;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    h2 {
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>👗 Fashion Coding Lesson: Outfit Matcher</h1>
-
 <div class="instructions">
-    <p>🎯 <strong>Goal:</strong> Use <code>for</code> or <code>while</code> loops to match tops and pants.</p>
-    <p><strong>Rules:</strong></p>
-    <ul>
-        <li>👕 <strong>White top</strong> → Match with any pants</li>
-        <li>👕 <strong>Blue top</strong> → Match with <em>dark pants only</em></li>
-        <li>👕 <strong>Cheetah print</strong> → Match with <em>white or black pants only</em></li>
-    </ul>
+  <h2>Fashion Packing Challenge</h2>
+  <p>
+    You are packing clothes for a fashion event. You must pack 3 shirts and 4 pairs of pants using loops!
+  </p>
+  <p><strong>Instructions:</strong></p>
+  <ul>
+    <li>Use a <code>for</code> loop to print each shirt you're packing.</li>
+    <li>Use a <code>while</code> loop to pack pants until you have 4 pants packed.</li>
+  </ul>
+  <p>Start typing your solution below and then click "Run Code" or "Run Tests" to see if you got it right!</p>
 </div>
 
-<textarea id="codeBox" class="editor">// Example:
-let top = "pink";
-let pantsOptions = ["black", "green", "white"];
-for (let i = 0; i < pantsOptions.length; i++) {
-    matchOutfit(top, pantsOptions[i]);
-}</textarea>
+<textarea id="code">
+# Starter Code (with blanks to fill in)
+def pack_suitcase():
+    shirts = ["red shirt", "blue shirt", "white shirt"]
+    pants = ["jeans", "black pants", "white pants", "navy pants"]
+
+    # Pack shirts using a for loop
+    # LOOP through each shirt in the list
+    for _____ in _____:   # Hint: for shirt in shirts
+        print("Packed:", _____)   # Hint: print the shirt
+
+    # Pack pants using a while loop
+    # Keep packing pants while packed < 4
+    packed = 0
+    index = 0
+    while _____:    # Hint: packed < 4
+        print("Packed:", _____)   # Hint: print pants[index]
+        packed += 1
+        index += 1
+
+pack_suitcase()
+</textarea>
+
 <br>
-<button onclick="runCode()" class="run-btn">Run Code</button>
-<div id="output" class="outfit-gallery">
-    <!-- Outfit images will appear here -->
+
+<button onclick="runUserCode()">Run Code</button>
+
+<div class="tooltip">
+  <button onclick="runCodeWithTests()">Run Tests</button>
+  <div class="tooltiptext">
+    The tests will check if you packed 3 shirts using a for loop and 4 pants using a while loop!
+  </div>
 </div>
+
+<pre id="output">(no output)</pre>
 
 <script>
-const outfitImages = {
-    tops: {
-        white: 'https://cdn.pixabay.com/photo/2016/11/22/20/10/white-1854059_1280.jpg',
-        blue: 'https://cdn.pixabay.com/photo/2013/07/12/18/22/t-shirt-153369_1280.png',
-        red: 'https://cdn.pixabay.com/photo/2013/07/12/15/34/shirt-150087_1280.png',
-        pink: 'https://cdn.pixabay.com/photo/2012/04/14/15/09/shirt-34238_1280.png',
-        cheetah: 'https://cdn.pixabay.com/photo/2014/11/10/14/46/t-shirt-525759_1280.jpg'
-    },
-    pants: {
-        brown: 'https://cdn.pixabay.com/photo/2016/08/20/12/41/pants-1607444_1280.png',
-        black: 'https://cdn.pixabay.com/photo/2012/04/24/11/18/clothing-39389_1280.png',
-        blue: 'https://cdn.pixabay.com/photo/2014/04/02/10/40/jeans-304196_1280.png',
-        green: 'https://cdn.pixabay.com/photo/2017/08/10/07/32/fashion-2619790_1280.jpg',
-        navy: 'https://cdn.pixabay.com/photo/2022/07/04/08/32/pants-7300321_1280.jpg',
-        white: 'https://cdn.pixabay.com/photo/2016/02/01/21/09/jeans-1178914_1280.jpg',
-        red: 'https://cdn.pixabay.com/photo/2014/12/21/23/28/pants-576144_1280.png'
-    }
-};
-function matchOutfit(top, pant) {
-    const outputDiv = document.getElementById('output');
+let pyodideReady = false;
+let editor;
 
-    const rules = {
-        white: () => true, // allow all
-        blue: (p) => ["black", "navy", "brown"].includes(p),
-        cheetah: (p) => ["white", "black"].includes(p)
-    };
+async function loadPyodideAndPackages() {
+  window.pyodide = await loadPyodide();
+  pyodideReady = true;
+}
+loadPyodideAndPackages();
 
-    const isValid = rules[top]
-        ? rules[top](pant)
-        : true; // allow all by default for tops not defined in rules
+window.addEventListener("DOMContentLoaded", () => {
+  editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    mode: "python",
+    lineNumbers: true,
+    indentUnit: 4,
+    tabSize: 4,
+    matchBrackets: true,
+    theme: "material-darker",
+    styleActiveLine: true,
+    autofocus: true,
+  });
+});
 
-    if (!isValid) return;
-
-    // Clear previous output on first match
-    if (!window.firstMatchDone) {
-        outputDiv.innerHTML = '';
-        window.firstMatchDone = true;
-    }
-
-    const topImg = outfitImages.tops[top];
-    const pantImg = outfitImages.pants[pant];
-
-    const outfit = document.createElement('div');
-    outfit.className = 'outfit';
-    outfit.innerHTML = `
-        <img src="${topImg || ''}" alt="${top} top">
-        <p><strong>${top} top</strong></p>
-        <img src="${pantImg || ''}" alt="${pant} pants">
-        <p><strong>${pant} pants</strong></p>
-    `;
-    outputDiv.appendChild(outfit);
+async function setupPyodideOutput() {
+  await pyodide.runPythonAsync(`
+import sys
+from io import StringIO
+sys.stdout = sys.stderr = StringIO()
+`);
 }
 
-function runCode() {
-    const userCode = document.getElementById('codeBox').value;
-    window.firstMatchDone = false;
+async function getPyodideOutput() {
+  return await pyodide.runPythonAsync("sys.stdout.getvalue()");
+}
 
-    try {
-        const func = new Function('matchOutfit', userCode);
-        func(matchOutfit);
-    } catch (err) {
-        document.getElementById('output').innerHTML = `<pre>Error: ${err.message}</pre>`;
-    }
+async function runUserCode() {
+  const output = document.getElementById("output");
+  if (!pyodideReady) {
+    output.textContent = "⏳ Pyodide is still loading...";
+    return;
+  }
+
+  const userCode = editor.getValue();
+
+  try {
+    await setupPyodideOutput();
+    await pyodide.runPythonAsync(userCode);
+    const result = await getPyodideOutput();
+    output.textContent = result || "(no output)";
+  } catch (err) {
+    output.textContent = "❌ Error:\n" + err;
+  }
+}
+
+async function runCodeWithTests() {
+  const output = document.getElementById("output");
+  if (!pyodideReady) {
+    output.textContent = "⏳ Pyodide is still loading...";
+    return;
+  }
+
+  const userCode = editor.getValue();
+  const testCode = `
+shirts = ["red", "blue", "white"]
+pants = []
+
+# Students code
+${userCode}
+
+# Testing Section
+passed = True
+
+if "Packing shirt: red" not in sys.stdout.getvalue():
+    passed = False
+if "Packing shirt: blue" not in sys.stdout.getvalue():
+    passed = False
+if "Packing shirt: white" not in sys.stdout.getvalue():
+    passed = False
+if sys.stdout.getvalue().count("Packing pants") != 4:
+    passed = False
+
+if passed:
+    print("🎉 All tests passed!")
+else:
+    print("❌ Some tests failed. Check your loops carefully!")
+`;
+
+  try {
+    await setupPyodideOutput();
+    await pyodide.runPythonAsync(testCode);
+    const result = await getPyodideOutput();
+    output.textContent = result || "(no output)";
+  } catch (err) {
+    output.textContent = "❌ Error:\n" + err;
+  }
 }
 </script>
 
