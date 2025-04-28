@@ -1,87 +1,70 @@
-<!-- 
- login.php file which allows the user to login to BlossomTech
--->
+<!-- login.php file for BlossomTech -->
+
+<?php
+session_start();
+require_once './db.php';
+?>
 
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <h1>Welcome to BlossomTech!</h1>
- 
-  <link rel="stylesheet" href="style.css" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded"/>
   <title>Login</title>
+  <link rel="stylesheet" href="style.css?v=1">
 </head>
 
 <body>
-  <?php
-    // Start session
-     session_start(); 
-     require_once './db.php';
-  
-    if(isset($_POST["submit"])){
-      // Variables for the output and the web form below.
+
+<div class="login-container">
+  <h1>Welcome to BlossomTech!</h1>
+
+  <form method="POST" action="">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+    <input type="submit" name="submit" value="Login">
+
+    <?php
+    if (isset($_POST["submit"])) {
       $out_value = "";
       $s_user = $_POST['username'];
       $s_pass = $_POST['password'];
-      //$hashed_password = password_hash($s_pass, PASSWORD_DEFAULT);
 
-  
-      // The following is the core part of this script where we connect PHP
-      // and SQL.
-      // Check that the user entered data in the form.
-      if(!empty($s_user) && !empty($s_pass)){
-        // If so, prepare SQL query with the data to query the database.
-        $sql_query = "SELECT password FROM users WHERE username = (?)";
-        $stmt = $conn->prepare($sql_query);
-        $stmt->bind_param("s", $s_user);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = mysqli_fetch_assoc($result);
-        $pass = $row['password'];
-        // Send the query and obtain the result.
-        // mysqli_query performs a query against the database.
-        if(password_verify($s_pass, $pass)) {
-          // If the password inputs matched the hashed password in the database
-          //Log user in.
-          $_SESSION['username'] = $s_user; // Store username in session
-          header("Location: index.php"); // Redirect to home page
-          exit();
-        } 
-        else{
-          $error_msg = "Invalid login credientials - please try again";
-        }
-        // mysqli_fetch_assoc returns an associative array that corresponds to the 
-        // fetched row or NULL if there are no more rows.
-        // It does not make much of a difference here, but, e.g., if there are
-        // multiple rows returned, you can iterate over those with a loop.
+      if (!empty($s_user) && !empty($s_pass)) {
+          $sql_query = "SELECT password FROM users WHERE username = (?)";
+          $stmt = $conn->prepare($sql_query);
+          $stmt->bind_param("s", $s_user);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          $row = mysqli_fetch_assoc($result);
+
+          if ($row && password_verify($s_pass, $row['password'])) {
+              $_SESSION['username'] = $s_user;
+              header("Location: index.php");
+              exit();
+          } else {
+              echo '<p class="error-msg">Invalid login credentials - please try again</p>';
+          }
+      } else {
+          echo '<p class="error-msg">Please fill out the form completely.</p>';
       }
-      else {
-       echo "Fill out the form";
-      }
+
+      $conn->close();
     }
-
-    // Close SQL connection.
-    $conn->close();
-  ?>
-
-  <!-- 
-    HTML code for the form by which the user can query data.
-    Note that we are using names (to pass values around in PHP) and not ids
-    (which are for CSS styling or JavaScript functionality).
-    You can leave the action in the form open 
-    (https://stackoverflow.com/questions/1131781/is-it-a-good-practice-to-use-an-empty-url-for-a-html-forms-action-attribute-a)
-  -->
-  <form method="POST" action="">
-  Username: <input type="text" name="username" placeholder="Enter username" required/><br>
-  Password: <input type="password" name="password" placeholder="Enter password" required/><br>
-  <input type="submit" name="submit" value="Submit"/>
-  <?php if (!empty($error_msg)) : ?>
-        <p style="color: red;"><?php echo $error_msg; ?></p>
-  <?php endif; ?>
-
+    ?>
   </form>
-  <p>Don't have an account? <a href="register.php">Sign up</a></p>
-  
+
+  <div class="signup-link">
+    Don't have an account? <a href="register.php">Sign up here</a>
+  </div>
+</div>
+
 </body>
 </html>
+
+
