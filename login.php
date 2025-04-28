@@ -1,87 +1,90 @@
-<!-- 
- login.php file which allows the user to login to BlossomTech
--->
+<?php
+session_start();
+require_once './db.php';
 
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-  <h1>Welcome to BlossomTech!</h1>
- 
-  <link rel="stylesheet" href="style.css" />
+// Handle form submission
+if (isset($_POST["submit"])) {
+    $s_user = $_POST['username'];
+    $s_pass = $_POST['password'];
 
-  <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded"/>
-  <title>Login</title>
-</head>
-
-<body>
-  <?php
-    // Start session
-     session_start(); 
-     require_once './db.php';
-  
-    if(isset($_POST["submit"])){
-      // Variables for the output and the web form below.
-      $out_value = "";
-      $s_user = $_POST['username'];
-      $s_pass = $_POST['password'];
-      //$hashed_password = password_hash($s_pass, PASSWORD_DEFAULT);
-
-  
-      // The following is the core part of this script where we connect PHP
-      // and SQL.
-      // Check that the user entered data in the form.
-      if(!empty($s_user) && !empty($s_pass)){
-        // If so, prepare SQL query with the data to query the database.
-        $sql_query = "SELECT password FROM users WHERE username = (?)";
+    if (!empty($s_user) && !empty($s_pass)) {
+        $sql_query = "SELECT password FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql_query);
         $stmt->bind_param("s", $s_user);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = mysqli_fetch_assoc($result);
-        $pass = $row['password'];
-        // Send the query and obtain the result.
-        // mysqli_query performs a query against the database.
-        if(password_verify($s_pass, $pass)) {
-          // If the password inputs matched the hashed password in the database
-          //Log user in.
-          $_SESSION['username'] = $s_user; // Store username in session
-          header("Location: index.php"); // Redirect to home page
-          exit();
-        } 
-        else{
-          $error_msg = "Invalid login credientials - please try again";
+        
+        if ($row && password_verify($s_pass, $row['password'])) {
+            $_SESSION['username'] = $s_user;
+            header("Location: index.php");
+            exit();
+        } else {
+            $error_msg = "Invalid login credentials - please try again.";
         }
-        // mysqli_fetch_assoc returns an associative array that corresponds to the 
-        // fetched row or NULL if there are no more rows.
-        // It does not make much of a difference here, but, e.g., if there are
-        // multiple rows returned, you can iterate over those with a loop.
-      }
-      else {
-       echo "Fill out the form";
-      }
+    } else {
+        $error_msg = "Please fill out the form.";
     }
 
-    // Close SQL connection.
     $conn->close();
-  ?>
+}
+?>
 
-  <!-- 
-    HTML code for the form by which the user can query data.
-    Note that we are using names (to pass values around in PHP) and not ids
-    (which are for CSS styling or JavaScript functionality).
-    You can leave the action in the form open 
-    (https://stackoverflow.com/questions/1131781/is-it-a-good-practice-to-use-an-empty-url-for-a-html-forms-action-attribute-a)
-  -->
-  <form method="POST" action="">
-  Username: <input type="text" name="username" placeholder="Enter username" required/><br>
-  Password: <input type="password" name="password" placeholder="Enter password" required/><br>
-  <input type="submit" name="submit" value="Submit"/>
-  <?php if (!empty($error_msg)) : ?>
-        <p style="color: red;"><?php echo $error_msg; ?></p>
-  <?php endif; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Website that teaches you how to code based on your interests." />
+    <title>Login | BlossomTech</title>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
 
-  </form>
-  <p>Don't have an account? <a href="register.php">Sign up</a></p>
-  
+<body>
+    <!-- Navbar -->
+    <div id="navbar" class="navbar">
+        <ul>
+            <?php if (isset($_SESSION['username'])): ?>
+                <li><a href="view_suggestions.php">Suggestions</a></li>
+            <?php endif; ?>
+            <li><a href="index.php#our-mission">Our Mission</a></li>
+            <li><a href="index.php#testimonials">Testimonials</a></li>
+            <li><a href="index.php#start-coding">Start Coding</a></li>
+
+            <?php if (isset($_SESSION['username'])): ?>
+                <li style="color: #BED8D4;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></li>
+                <li><a href="logout.php">Log Out</a></li>
+            <?php else: ?>
+                <li><a href="login.php" class="login-button">Login</a></li>
+            <?php endif; ?>
+        </ul>
+    </div>
+
+    <!-- Login Form Container -->
+    <div class="login-container">
+        <h1>Login to BlossomTech</h1>
+        <form method="POST" action="">
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Enter username" required />
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter password" required />
+
+            <input type="submit" name="submit" value="Submit" />
+
+            <?php if (!empty($error_msg)): ?>
+                <p class="error-msg"><?php echo $error_msg; ?></p>
+            <?php endif; ?>
+        </form>
+
+        <div class="signup-link">
+            <p>Don't have an account? <a href="register.php">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>This website was created for COMP333: Software Engineering at Wesleyan University as an exercise.</p>
+    </footer>
 </body>
 </html>
