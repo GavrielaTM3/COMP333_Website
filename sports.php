@@ -3,16 +3,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Basketball Coding Lesson</title>
+  <title>Basketball Coding Challenge</title>
 
-  <!-- CodeMirror core -->
+  <!-- CodeMirror -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/codemirror.min.js"></script>
-
-  <!-- Python syntax mode -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/mode/python/python.min.js"></script>
-
-  <!-- Dark theme for editor -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.10/theme/material-darker.min.css" />
 
   <!-- Pyodide -->
@@ -27,24 +23,14 @@
       max-width: 1000px;
       margin: auto;
     }
-
     .instructions {
       background-color: #1a1a1a;
       border: 1px solid #333;
       padding: 20px;
-      margin-top: 20px;
       border-radius: 10px;
-      margin-bottom: 20px;
-      line-height: 1.5;
+      margin: 20px 0;
     }
-
-    .CodeMirror {
-      height: 300px;
-      font-size: 15px;
-      background-color: #0d0d0d;
-      color: white;
-    }
-
+    .CodeMirror { height: 300px; font-size: 15px; background: #0d0d0d; color: white; }
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -58,42 +44,18 @@
       font-weight: bold;
       transition: background-color 0.3s ease;
     }
-
-    button:hover {
-      background-color: #3a86c3;
-    }
-
+    button:hover { background-color: #3a86c3; }
     pre {
       margin-top: 20px;
       background: #121212;
       padding: 10px;
       border: 1px solid #555;
-      border-radius: 8px;
       white-space: pre-wrap;
       color: white;
     }
-
-    h2 {
-      font-size: 2em;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .home-btn {
-      margin-top: 10px;
-      margin-bottom: 20px;
-      background-color: #4ea8de;
-      color: #0d0d0d;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 16px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .home-btn:hover {
-      background-color: #3a86c3;
+    #lesson-2 {
+      display: none;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -105,128 +67,240 @@
 </form>
 
 <div class="instructions">
-  <h2>🏀 Basketball Coding Challenge</h2>
-  <p>You are a data analyst for a basketball team. You are given a list of player scores and you want to calculate the average number of points each player scores.</p>
-  <p><strong>Your task:</strong> Write a function <code>calculateAverage(scores)</code> that takes a list of numbers and returns the average score.</p>
-  <p><strong>Example:</strong>  
-    If the scores are <code>[23, 31, 19, 45]</code>, the average should be <code>29.5</code>.
-  </p>
-  <p><strong>Instructions:</strong> Complete the function so that it calculates and returns the correct average score. Then click "Run Code" to see if your code works, and "Run Tests" to verify it passes all hidden tests!</p>
+  <h2>🏀 Basketball Coding Challenge - Lesson 1</h2>
+  <p>Write a function <code>calculateAverage(scores)</code> that returns the average score given a list of numbers.</p>
+  <p><strong>Example:</strong> <code>[23, 31, 19, 45]</code> → <code>29.5</code></p>
 </div>
 
-<textarea id="code"># Starter code:
+<textarea id="code">
+# Starter Code (fill in the blanks)
 def calculateAverage(scores: list) -> float:
-    # Your code here
+    # Hint: Add up all the scores
+    # Hint: Divide by how many scores there are
+    pass
 
-print("Average:", calculateAverage([1, 2, 3]))</textarea>
-
-<br>
+# Example use
+print("Average:", calculateAverage([1, 2, 3]))
+</textarea>
 
 <button onclick="runUserCode()">▶️ Run Code</button>
 <button onclick="runCodeWithTests()">🧪 Run Tests</button>
 
 <pre id="output">(no output)</pre>
 
+<div id="lesson-2">
+  <div class="instructions">
+    <h2>🏀 Advanced Basketball Challenge - Lesson 2</h2>
+    <p>Write a function <code>calculateAverages(games)</code> that takes a list of games and returns a list of average scores for each game.</p>
+    <p><strong>Example:</strong></p>
+    <pre>
+[[23, 31, 19, 45], [12, 15, 20]] → [29.5, 15.6666]
+    </pre>
+  </div>
+
+  <textarea id="lesson2-editor">
+# Starter Code
+def calculateAverages(games: list) -> list:
+    # Hint: Use a for loop to go through each game!
+    pass
+
+# Example use
+print(calculateAverages([[23, 31, 19, 45], [12, 15, 20]]))
+  </textarea>
+
+  <button onclick="runLesson2Code()">▶️ Run Code (Lesson 2)</button>
+  <button onclick="runLesson2Tests()">🧪 Run Tests (Lesson 2)</button>
+
+  <pre id="output-lesson2">(no output)</pre>
+</div>
+
 <script>
-  let pyodideReady = false;
-  let editor;
+let pyodideReady = false;
+let editor;
+let editor2;
 
-  async function loadPyodideAndPackages() {
-    window.pyodide = await loadPyodide();
-    pyodideReady = true;
-  }
-  loadPyodideAndPackages();
+async function loadPyodideAndPackages() {
+  window.pyodide = await loadPyodide();
+  pyodideReady = true;
+}
+loadPyodideAndPackages();
 
-  window.addEventListener("DOMContentLoaded", () => {
-    editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-      mode: "python",
-      lineNumbers: true,
-      indentUnit: 4,
-      tabSize: 4,
-      matchBrackets: true,
-      theme: "material-darker",
-      styleActiveLine: true,
-      autofocus: true,
-    });
+window.addEventListener("DOMContentLoaded", () => {
+  editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    mode: "python",
+    theme: "material-darker",
+    lineNumbers: true,
+    indentUnit: 4,
+    matchBrackets: true,
+    styleActiveLine: true,
   });
+});
 
-  async function setupPyodideOutput() {
-    await pyodide.runPythonAsync(`
+// Setup Pyodide output
+async function setupPyodideOutput() {
+  await pyodide.runPythonAsync(`
 import sys
 from io import StringIO
 sys.stdout = sys.stderr = StringIO()
 `);
+}
+
+async function getPyodideOutput() {
+  return await pyodide.runPythonAsync("sys.stdout.getvalue()");
+}
+
+// Run User Code (Lesson 1)
+async function runUserCode() {
+  const output = document.getElementById("output");
+  if (!pyodideReady) {
+    output.textContent = "⏳ Pyodide is still loading...";
+    return;
   }
-
-  async function getPyodideOutput() {
-    return await pyodide.runPythonAsync("sys.stdout.getvalue()");
+  const userCode = editor.getValue();
+  try {
+    await setupPyodideOutput();
+    await pyodide.runPythonAsync(userCode);
+    const result = await getPyodideOutput();
+    output.textContent = result || "(no output)";
+  } catch (err) {
+    output.textContent = "❌ Error:\n" + err;
   }
+}
 
-  async function runUserCode() {
-    const output = document.getElementById("output");
-    if (!pyodideReady) {
-      output.textContent = "⏳ Pyodide is still loading...";
-      return;
-    }
+// Run Tests (Lesson 1)
+async function runCodeWithTests() {
+  const output = document.getElementById("output");
+  if (!pyodideReady) return;
 
-    const userCode = editor.getValue();
+  const userCode = editor.getValue();
+  const fullTestCode = `
+${userCode}
 
-    try {
-      await setupPyodideOutput();
-      await pyodide.runPythonAsync(userCode);
-      const result = await getPyodideOutput();
-      output.textContent = result || "(no output)";
-    } catch (err) {
-      output.textContent = "❌ Error:\n" + err;
-    }
-  }
-
-  async function runCodeWithTests() {
-    const output = document.getElementById("output");
-    if (!pyodideReady) {
-      output.textContent = "⏳ Pyodide is still loading...";
-      return;
-    }
-
-    const userCode = editor.getValue();
-    const testSuite = `
+# Test cases for Lesson 1
 print("\\nRunning Hidden Tests...")
-passed_all_tests = True
+passed = True
 
-test_cases = [
-    ([1, 2, 3], 2),
-    ([10, 20], 15),
-    ([1, 2, 3, 4], 2.5),
-    ([100], 100),
-    ([0, 0, 0], 0)
-]
+try:
+    if round(calculateAverage([1,2,3]), 5) != 2:
+        passed = False
+    if round(calculateAverage([10,20]), 5) != 15:
+        passed = False
+    if round(calculateAverage([1,2,3,4]), 5) != 2.5:
+        passed = False
+    if round(calculateAverage([100]), 5) != 100:
+        passed = False
+    if round(calculateAverage([0,0,0]), 5) != 0:
+        passed = False
+except:
+    passed = False
 
-for i, (input_data, expected) in enumerate(test_cases, 1):
-    try:
-        result = calculateAverage(input_data)
-        if round(result, 5) == round(expected, 5):
-            print(f"✅ Test {i}: Passed")
-        else:
-            print(f"❌ Test {i}: Failed — Expected {expected} but got {result}")
-            passed_all_tests = False
-    except Exception as e:
-        print(f"❌ Test {i}: Error — {str(e)}")
-        passed_all_tests = False
-
-print("🎉 All tests passed!" if passed_all_tests else "❌ Some tests failed.")
+if passed:
+    print("🎉 All tests passed!")
+else:
+    print("❌ Some tests failed. Check your code carefully.")
 `;
 
-    const fullCode = `${userCode}\n\n${testSuite}`;
+  try {
+    await setupPyodideOutput();
+    await pyodide.runPythonAsync(fullTestCode);
+    const result = await getPyodideOutput();
+    output.textContent = result;
 
-    try {
-      await setupPyodideOutput();
-      await pyodide.runPythonAsync(fullCode);
-      const result = await getPyodideOutput();
-      output.textContent = result || "(no output)";
-    } catch (err) {
-      output.textContent = "❌ Error:\n" + err;
+    if (result.includes("🎉 All tests passed!")) {
+      unlockLesson2();
+      updatePoints('sports1'); // 🚀 Update points after passing lesson 1
     }
+  } catch (err) {
+    output.textContent = "❌ Error:\n" + err;
   }
+}
+
+// Unlock Lesson 2
+function unlockLesson2() {
+  if (!editor2) {
+    editor2 = CodeMirror.fromTextArea(document.getElementById("lesson2-editor"), {
+      mode: "python",
+      theme: "material-darker",
+      lineNumbers: true,
+      indentUnit: 4,
+      matchBrackets: true,
+      styleActiveLine: true,
+    });
+  }
+  document.getElementById("lesson-2").style.display = "block";
+  window.scrollTo({ top: document.getElementById("lesson-2").offsetTop, behavior: 'smooth' });
+}
+
+// Run Code (Lesson 2)
+async function runLesson2Code() {
+  const output = document.getElementById("output-lesson2");
+  if (!pyodideReady) return;
+  const userCode = editor2.getValue();
+  try {
+    await setupPyodideOutput();
+    await pyodide.runPythonAsync(userCode);
+    const result = await getPyodideOutput();
+    output.textContent = result;
+  } catch (err) {
+    output.textContent = "❌ Error:\n" + err;
+  }
+}
+
+// Run Tests (Lesson 2)
+async function runLesson2Tests() {
+  const output = document.getElementById("output-lesson2");
+  if (!pyodideReady) return;
+
+  const userCode = editor2.getValue();
+  const fullTestCode = `
+${userCode}
+
+# Test cases for Lesson 2
+print("\\nRunning Hidden Tests...")
+passed = True
+
+try:
+    res = calculateAverages([[1,2,3],[4,5,6]])
+    if res != [2.0,5.0]:
+        passed = False
+except:
+    passed = False
+
+if passed:
+    print("🎉 Passed!")
+else:
+    print("❌ Failed tests.")
+`;
+
+  try {
+    await setupPyodideOutput();
+    await pyodide.runPythonAsync(fullTestCode);
+    const result = await getPyodideOutput();
+    output.textContent = result;
+
+    if (result.includes("🎉 Passed!")) {
+      updatePoints('sports2'); // 🚀 Update points after passing lesson 2
+    }
+  } catch (err) {
+    output.textContent = "❌ Error:\n" + err;
+  }
+}
+
+// Update Points function
+function updatePoints(lessonName) {
+  fetch('./api/update_points.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ lesson: lessonName })
+  })
+  .then(response => response.json())
+  .then(data => {
+    alert(data.message);
+  })
+  .catch(error => {
+    alert('Error updating points: ' + error);
+  });
+}
 </script>
 
 </body>
