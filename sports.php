@@ -106,7 +106,7 @@ def calculateAverages(games: list) -> list:
 
 # Example use
 print(calculateAverages([[23, 31, 19, 45], [12, 15, 20]]))
-  </textarea>
+</textarea>
 
   <button onclick="runLesson2Code()">▶️ Run Code (Lesson 2)</button>
   <button onclick="runLesson2Tests()">🧪 Run Tests (Lesson 2)</button>
@@ -226,6 +226,7 @@ function unlockLesson2() {
       matchBrackets: true,
       styleActiveLine: true,
     });
+    editor2.refresh();
   }
   document.getElementById("lesson-2").style.display = "block";
   window.scrollTo({ top: document.getElementById("lesson-2").offsetTop, behavior: 'smooth' });
