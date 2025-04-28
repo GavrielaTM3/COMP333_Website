@@ -150,7 +150,7 @@ sys.stdout = sys.stderr = StringIO()
       }
     }
 
-    async function runCodeWithTests() {
+  async function runCodeWithTests() {
   const output = document.getElementById("output");
   const nextLesson = document.getElementById("next-lesson");
   const lesson2 = document.getElementById("lesson-2");
@@ -229,14 +229,29 @@ print("ALL_TESTS_PASSED" if passed_all_tests else "TESTS_FAILED")
     output.textContent = result || "(no output)";
 
     if (result.includes("ALL_TESTS_PASSED")) {
-      if (currentLesson === 1) {
-        nextLesson.style.display = "block";  
-        
-        nextLesson.scrollIntoView({ behavior: "smooth" });
-      } else if (currentLesson === 2) {
-        alert("🎉 Congratulations! You completed all lessons!");
-      }
+    fetch('./api/update_points.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ lesson: 'sports1' }) // or sports2, fashion depending on lesson
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message); // <------ Show this alert
+    })
+    .catch(error => {
+      alert('Error updating points: ' + error); // <------ Show this alert
+    });
+
+    if (currentLesson === 1) {
+      nextLesson.style.display = "block";  
+      nextLesson.scrollIntoView({ behavior: "smooth" });
+    } else if (currentLesson === 2) {
+      alert("🎉 Congratulations! You completed all lessons!");
     }
+
+}
   } catch (err) {
     output.textContent = "❌ Error:\n" + err;
   }
@@ -341,8 +356,25 @@ print("ALL_TESTS_PASSED" if passed_all_tests else "TESTS_FAILED")
     const result = await getPyodideOutput();
     output.textContent = result || "(no output)";
     if (result.includes("ALL_TESTS_PASSED")) {
+      // Update points and mark sports2 as complete
+      fetch('./api/update_points.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ lesson: 'sports2' }) // ✅ Send sports2 this time
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message); // ✅ Show success or error message
+      })
+      .catch(error => {
+        alert('Error updating points: ' + error);
+      });
+
       alert("🎉 Congratulations! You completed Lesson 2!");
     }
+
   } catch (err) {
     output.textContent = "❌ Error:\n" + err;
   }

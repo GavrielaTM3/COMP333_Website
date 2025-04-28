@@ -17,7 +17,22 @@ if (isset($_POST["submit"])) {
         
         if ($row && password_verify($s_pass, $row['password'])) {
             $_SESSION['username'] = $s_user;
-            header("Location: index.php");
+
+            $check_sql = "SELECT * FROM points WHERE username = ?";
+            $check_stmt = $conn->prepare($check_sql);
+            $check_stmt->bind_param("s", $s_user);
+            $check_stmt->execute();
+            $check_result = $check_stmt->get_result();
+
+            if ($check_result->num_rows === 0) {
+                // Insert if not exists
+                $insert_sql = "INSERT INTO points (username, sports1, sports2, fashion, points) VALUES (?, FALSE, FALSE, FALSE, 0)";
+                $insert_stmt = $conn->prepare($insert_sql);
+                $insert_stmt->bind_param("s", $s_user);
+                $insert_stmt->execute();
+            }
+
+            header("Location: /COMP333_Website/index.php");
             exit();
         } else {
             $error_msg = "Invalid login credentials - please try again.";
@@ -29,6 +44,7 @@ if (isset($_POST["submit"])) {
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
