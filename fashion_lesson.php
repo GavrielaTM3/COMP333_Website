@@ -105,7 +105,9 @@
 </head>
 
 <body>
-
+<form action="index.php" method="get" style="text-align: left;">
+  <button type="submit" class="home-btn">🏠 Home</button>
+</form>
 <div class="instructions">
   <h2>👜 Fashion Packing Challenge</h2>
   <p>You are packing clothes for a fashion event. Pack 3 shirts and 4 pants using loops!</p>
@@ -126,11 +128,9 @@ def pack_suitcase():
         print("Packed:", _____)   # Hint: print shirt
 
     # Pack pants
-    packed = 0
     index = 0
-    while _____:   # Hint: packed < 4
+    while _____:   # Hint: index < 4
         print("Packed:", _____)   # Hint: pants[index]
-        packed += 1
         index += 1
 
 pack_suitcase()
@@ -259,10 +259,28 @@ else:
     await pyodide.runPythonAsync(fullTestCode);
     const result = await getPyodideOutput();
     output.textContent = result || "(no output)";
+
+    if (result.includes("🎉 All tests passed!")) {
+      fetch('./api/update_points.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ lesson: 'fashion' }) // <-- fashion lesson
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message); // Show success message
+      })
+      .catch(error => {
+        alert('Error updating points: ' + error);
+      });
+    }
   } catch (err) {
     output.textContent = "❌ Error:\n" + err;
   }
 }
+
 </script>
 
 </body>
