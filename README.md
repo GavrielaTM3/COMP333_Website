@@ -71,6 +71,10 @@ redirected to the login page where they can login using their new credentials. A
 Users who are already logged in can click the suggestions button in the top left corner of the homepage and they will be directed to 
 a page where they can view all the current suggestions, make another, view a suggestion, or update/delete one of their own. 
 
+## Take a Coding Lesson! 
+
+Click on either the fashion icon or the sports icon to take the correspoding coding lesson. You will be rewarded for 50 points for each problem you solve and passes all the test cases. The amount of points you have earned will be displayed on the top of the homepage. Currently only fashion and sports are implemented but photography and biology are coming soon!
+
 ## Loging out
 
 To log out simply click logout on the home page.
