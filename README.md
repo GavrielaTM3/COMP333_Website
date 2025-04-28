@@ -24,6 +24,10 @@ Create learning_preferences table:
 ```bash
 CREATE TABLE learning_preferences ( id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), coding_concept VARCHAR(255), theme VARCHAR(255), FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE );
 ```
+Create points table:
+```bash
+CREATE TABLE points ( id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), sports1 BOOLEAN, sports2 BOOLEAN, fashion BOOLEAN, points INT, FOREIGN KEY (username) REFERENCES users(username) );
+```
 There are screenshots in the SQL section which show the desired structure of the tables
 
 ## Web Version 

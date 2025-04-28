@@ -1,9 +1,29 @@
 <?php
 session_start();
+require_once './db.php'; // <-- Add this line to connect to database
 
 // Check if user is logged in
 $is_logged_in = isset($_SESSION['username']);
+$user_points = null; // Initialize
+
+if ($is_logged_in) {
+    $username = $_SESSION['username'];
+
+    $sql = "SELECT points FROM points WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt) {
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            $user_points = $row['points'];
+        }
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,23 +38,27 @@ $is_logged_in = isset($_SESSION['username']);
 <body>
     <!-- Navigation Bar -->
     <div id="navbar" class="navbar">
-        <ul>
-            <?php if ($is_logged_in): ?>
-                <li><a href="view_suggestions.php">Suggestions</a></li>
-            <?php endif; ?>
+    <ul>
+        <?php if ($is_logged_in): ?>
+            <li><a href="view_suggestions.php">Suggestions</a></li>
+        <?php endif; ?>
 
-            <li><a href="#our-mission">Our Mission</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#start-coding">Start Coding</a></li>
+        <li><a href="#our-mission">Our Mission</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#start-coding">Start Coding</a></li>
 
-            <?php if ($is_logged_in): ?>
-                <li style="color: #BED8D4;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></li>
-                <li><a href="logout.php">Log Out</a></li>
-            <?php else: ?>
-                <li><a href="login.php" class="login-button">Login</a></li>
+        <?php if ($is_logged_in): ?>
+            <li style="color: #BED8D4;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></li>
+            <?php if (!is_null($user_points)): ?>
+                <li style="color: #FFD700;">🏆 Points: <?php echo htmlspecialchars($user_points); ?></li>
             <?php endif; ?>
-        </ul>
-    </div>
+            <li><a href="logout.php">Log Out</a></li>
+        <?php else: ?>
+            <li><a href="login.php" class="login-button">Login</a></li>
+        <?php endif; ?>
+    </ul>
+</div>
+
 
     <!-- Mission Section -->
     <div class="mission-text" id="our-mission">
