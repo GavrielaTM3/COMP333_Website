@@ -115,11 +115,6 @@ if ($is_logged_in) {
         </div>
     </div>
 
-    <!-- Sample Coding Challenge Section -->
-    <div class="coding-section">
-        <h2>Try a Sample Coding Challenge!</h2>
-        <iframe src="sample_lesson.html" title="Sample Coding Challenge"></iframe>
-    </div>
 
     <!-- Footer -->
     <footer>
