@@ -88,6 +88,41 @@ We have provided some unit tests in order to make sure that our api functionalit
 ```
 Then you should see the output of the tests and if they passed it should say "OK (4 tests, 6 assertions)" 
 
+## Generative AI 
+
+Question: Explore how you could use generative AI tools in the testing of your app. For
+example, can you ask such a tool to write a test case for you? This question is open-ended and there
+are many possible answers. Please explain in your readme what you did, provide any code, and let
+us know how we could reproduce what you did.
+
+
+We used generative AI tools to help us with the testing of our app. We used ChatGPT to help up generate unit tests for us. On example of our prompt was: Can you please fix this version of a PHPUnit test function for a POST request:
+
+```bash
+public function testPost_CreateUser() { $response = $this->client->request('POST', 'COMP333_website/api/register.php', [ 'json' => [ 'username' => 'testuser', 'password' => 'securepassword123', 'confirmPassword' ==> 'securepassword123'] ]); $this->assertEquals(201, $response->getStatusCode()); }
+```
+
+ChatGPT provided us with this code: Here’s the corrected version of your PHPUnit test function for a POST request. The syntax error was in the => operator for 'confirmPassword' and the closing brackets needed alignment:
+
+```bash
+php
+CopyEdit
+public function testPost_CreateUser() {
+    $response = $this->client->request('POST', 'COMP333_website/api/register.php', [
+        'json' => [
+            'username' => 'testuser',
+            'password' => 'securepassword123',
+            'confirmPassword' => 'securepassword123'
+        ]
+    ]);
+    $this->assertEquals(201, $response->getStatusCode());
+}
+```
+
+If you would like to reproduce what we did, you can put in the same prompt we used, but with the specific test you would like ChatGPT to help you with. 
+Generative AI has been great in increasing our productivity with this project. 
+It saved us time, allowing us to spend our time being more creative in the design and functionality of BlossomTech. 
+
 ## SQL  
 
 ![Users](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Users_Table.jpg)
