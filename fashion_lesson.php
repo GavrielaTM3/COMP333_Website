@@ -110,6 +110,7 @@
 </form>
 <div class="instructions">
   <h2>Fashion Packing Challenge</h2>
+  <h3>Difficulty: Easy</h3>
   <p>You are packing fashionable clothes for a vacation, but you only have space to pack 3 shirts and 4 pants! Your job is to do this using while loops. You can look below for some insiration on outfits.</p>
   <ul>
     <li>Use a <code>for</code> loop to print each shirt you're packing.</li>
