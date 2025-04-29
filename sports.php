@@ -68,6 +68,7 @@
 
 <div class="instructions">
   <h2>🏀 Basketball Coding Challenge - Lesson 1</h2>
+  <h3>Difficulty: Hard</h3>
   <p>Write a function <code>calculateAverage(scores)</code> that returns the average score given a list of numbers.</p>
   <p><strong>Example:</strong> <code>[23, 31, 19, 45]</code> → <code>29.5</code></p>
 </div>
