@@ -79,6 +79,15 @@ Click on either the fashion icon or the sports icon to take the correspoding cod
 
 To log out simply click logout on the home page.
 
+## Testing 
+
+We have provided some unit tests in order to make sure that our api functionality was working as intended. In order to run these tests make sure you have PHPunit instealled. Then navigate to ./COMP333_Website/test-project which should be within your htdocs directory and execute the command:
+
+```bash
+./vendor/bin/phpunit ./tests/StackTest.php
+```
+Then you should see the output of the tests and if they passed it should say "OK (4 tests, 6 assertions)" 
+
 ## SQL  
 
 ![Users](https://raw.githubusercontent.com/GavrielaTM3/COMP333_Website/refs/heads/main/Users_Table.jpg)
