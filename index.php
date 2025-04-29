@@ -1,12 +1,7 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-session_start();
-require_once './db.php';
 
-//require_once './db.php'; // <-- Add this line to connect to database
+require_once './db.php'; // <-- Add this line to connect to database
 
 // Check if user is logged in
 $is_logged_in = isset($_SESSION['username']);

@@ -124,7 +124,7 @@ $conn->close();
     <!-- Navigation Bar -->
     <div id="navbar" class="navbar">
         <ul>
-            <li><a href="index.php">🏠 Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="view_suggestions.php">Suggestions</a></li>
             <li style="color: #BED8D4;">Logged in as: <?php echo htmlspecialchars($_SESSION['username']); ?></li>
             <li><a href="logout.php">Log Out</a></li>
@@ -136,7 +136,7 @@ $conn->close();
         <div class="form-box">
             <h2>Submit Your Learning Preferences</h2>
 
-            <a href="index.php">🏠 Back to Home</a>
+            <a href="index.php">Back to Home</a>
 
             <form action="submit_suggestions.php" method="POST">
                 <label for="coding_concept">Coding Concept:</label>
