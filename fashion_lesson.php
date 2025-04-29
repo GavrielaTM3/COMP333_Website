@@ -106,11 +106,11 @@
 
 <body>
 <form action="index.php" method="get" style="text-align: left;">
-  <button type="submit" class="home-btn">🏠 Home</button>
+  <button type="submit" class="home-btn">Home</button>
 </form>
 <div class="instructions">
-  <h2>👜 Fashion Packing Challenge</h2>
-  <p>You are packing clothes for a fashion event. Pack 3 shirts and 4 pants using loops!</p>
+  <h2>Fashion Packing Challenge</h2>
+  <p>You are packing fashionable clothes for a vacation, but you only have space to pack 3 shirts and 4 pants! Your job is to do this using while loops. You can look below for some insiration on outfits.</p>
   <ul>
     <li>Use a <code>for</code> loop to print each shirt you're packing.</li>
     <li>Use a <code>while</code> loop to pack pants until you have 4 pants packed.</li>
@@ -136,10 +136,10 @@ def pack_suitcase():
 pack_suitcase()
 </textarea>
 
-<button onclick="runUserCode()">▶️ Run Code</button>
+<button onclick="runUserCode()">Run Code</button>
 
 <div class="tooltip">
-  <button onclick="runCodeWithTests()">🧪 Run Tests</button>
+  <button onclick="runCodeWithTests()">Run Tests</button>
   <div class="tooltiptext">
     The tests check if you packed 3 shirts (for loop) and 4 pants (while loop) correctly!
   </div>
@@ -148,24 +148,24 @@ pack_suitcase()
 <pre id="output">(no output)</pre>
 
 <!-- Fashion Gallery Section -->
-<h2 style="text-align:center; margin-top:60px;">🧥 Fashion Items You Might Pack</h2>
+<h2 style="text-align:center; margin-top:60px;">Inspiration</h2>
 
 <div class="fashion-gallery">
   <div class="fashion-item">
-    <img src="https://img.pikbest.com/png-images/20241201/printed-hawaiian-shirts-on-transparent-background_11155340.png!bw700" alt="Shirt">
-    <p>Trendy Shirt</p>
+    <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b3V0Zml0fGVufDB8fDB8fHww" alt="Shirt">
+    <p>Spring in Southern Europe</p>
   </div>
   <div class="fashion-item">
-    <img src="https://cdn.pixabay.com/photo/2016/03/27/22/22/jeans-1286445_1280.jpg" alt="Jeans">
-    <p>Stylish Jeans</p>
+    <img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8b3V0Zml0fGVufDB8fDB8fHww" alt="Jeans">
+    <p>Fall in North America</p>
   </div>
   <div class="fashion-item">
-    <img src="https://cdn.pixabay.com/photo/2018/01/15/07/51/clothes-3083365_1280.jpg" alt="Jacket">
-    <p>Warm Jacket</p>
+    <img src="https://plus.unsplash.com/premium_photo-1734415282706-b49290018ddd?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8b3V0Zml0JTIwcGFydHl8ZW58MHx8MHx8fDA%3D" alt="Jacket">
+    <p>Night Out in Central America</p>
   </div>
   <div class="fashion-item">
-    <img src="https://cdn.pixabay.com/photo/2017/08/06/00/12/fashion-2580658_1280.jpg" alt="Backpack">
-    <p>Chic Backpack</p>
+    <img src="https://images.unsplash.com/photo-1624281043172-16ff234c2a14?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVhY2glMjBjbG90aGVzfGVufDB8fDB8fHww" alt="Backpack">
+    <p>Beach Day in Bali</p>
   </div>
 </div>
 
