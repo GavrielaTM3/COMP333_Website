@@ -69,7 +69,7 @@ if ($is_logged_in) {
 
     <!-- Grid Container for Lessons -->
     <div class="grid-container" id="start-coding">
-        <a href="biology_lesson.php" class="box">
+        <a href="#" class="box">
             <img src="https://cdn.pixabay.com/photo/2013/07/18/10/55/dna-163466_1280.jpg" alt="Biology Image">
             <h3>Biology</h3>
         </a>
@@ -84,7 +84,7 @@ if ($is_logged_in) {
             <h3>Sports</h3>
         </a>
 
-        <a href="photography_lesson.php" class="box">
+        <a href="#" class="box">
             <img src="https://cdn.pixabay.com/photo/2014/12/29/08/29/lens-582605_1280.jpg" alt="Photography Image">
             <h3>Photography</h3>
         </a>
